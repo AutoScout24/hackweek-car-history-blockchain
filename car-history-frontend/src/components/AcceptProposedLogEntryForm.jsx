@@ -8,6 +8,13 @@ import {
 } from 'react-bootstrap';
 import ProposedLogEntry from "./ProposedLogEntry";
 
+const StateEnum = {
+  None: 0,
+  Loading: 1,
+  Done: 2,
+  Error: 3
+};
+
 export default class AcceptProposedLogEntryForm extends React.Component {
 
   constructor(props) {
@@ -20,7 +27,8 @@ export default class AcceptProposedLogEntryForm extends React.Component {
     this.state = {
       contractAddress: '',
       loading: false,
-      proposedData: null
+      proposedData: null,
+      approvalState: StateEnum.None
     };
   }
 
@@ -37,7 +45,14 @@ export default class AcceptProposedLogEntryForm extends React.Component {
   }
 
   onAcceptProposal() {
-    console.log("accepting");
+    if(!this.state.proposedData) {
+      return;
+    }
+
+    this.setState({approvalState: StateEnum.Loading});
+    this.props.contractService.approveProposedLogEntry(this.state.contractAddress)
+      .then(() => this.setState({approvalState: StateEnum.Done, proposedData: null}))
+      .catch(() => this.setState({approvalState: StateEnum.Error}));
   }
 
   onAddressChangeHandler(e) {

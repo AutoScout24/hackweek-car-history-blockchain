@@ -2,8 +2,8 @@ import Web3 from 'web3';
 import contractABI from './smart-contracts/car-histroy.abi';
 import contractBytecode from './smart-contracts/car-history.bytecode';
 
-const defaultGasPrice = '3000000000000';
-const defaultGasVolume = '450000';
+const defaultGasPrice = '300000000000';
+const defaultGasVolume = '4000000';
 
 export default class ContractService {
 
@@ -15,7 +15,7 @@ export default class ContractService {
         this.web3.eth.getAccounts()
         .then((accounts) => {
           this.account = (accounts[0]);
-        }).catch((e) =>{
+        }).catch((e) => {
             console.log("Error in getting account");
         });
     }
@@ -69,12 +69,22 @@ export default class ContractService {
     }
 
     proposeLogEntry(address, data) {
-      return this.getContractAtAddress(address).methods.proposeLogEntry(data.mileage, data.comment)
+      return this.getContractAtAddress(address).methods
+        .proposeLogEntry(data.mileage, data.comment)
         .send({from: this.account, gas: defaultGasVolume, gasPrice: defaultGasPrice})
         .then((event) => {
           console.log(event);
         });
     }
+
+  approveProposedLogEntry(address) {
+    return this.getContractAtAddress(address).methods
+      .approveLogEntry()
+      .send({from: this.account, gas: defaultGasVolume, gasPrice: defaultGasPrice})
+      .then((event) => {
+        console.log(event);
+      });
+  }
 }
 
 

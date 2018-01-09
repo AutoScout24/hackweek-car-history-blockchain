@@ -1,5 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {
+  Button
+} from 'react-bootstrap';
 
 export default class ProposedLogEntry extends React.Component {
   constructor(props) {
@@ -7,14 +10,14 @@ export default class ProposedLogEntry extends React.Component {
   }
 
   render() {
-    if (!this.props.accepted) {
+    if (!this.props.accepted && this.props.author !== "0x0000000000000000000000000000000000000000") {
       return (
         <div>
           <h4>Proposal Data:</h4>
           <p>Comment: {this.props.comment}</p>
           <p>Author: {this.props.author}</p>
           <p>Mileage: {this.props.mileage} km</p>
-          <button onClick={this.props.onAccept}>Accept Proposal</button>
+          <Button onClick={this.props.onAccept}>Accept Proposal</Button>
         </div>
       );
     } else {
