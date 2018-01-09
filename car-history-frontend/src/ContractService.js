@@ -22,7 +22,7 @@ export default class ContractService {
 
     deployContract(data) {
         if (!this.account) {
-            return;
+            Promise.reject("No active account");
         }
 
         const contract = new this.web3.eth.Contract(contractABI,
@@ -31,8 +31,8 @@ export default class ContractService {
                 gasPrice: defaultGasPrice,
                 data: contractBytecode.object
             });
-        contract
-            .deploy({arguments: [this.account, 100, data.vin]})
+        return contract
+            .deploy({arguments: [this.account, data.mileage, data.vin]})
             .send({from: this.account})
             .then((contract) => {
                 console.log(contract);
