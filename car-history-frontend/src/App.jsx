@@ -7,6 +7,7 @@ import './App.css';
 
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
+import ReadCarHistoryDataForm from "./components/ReadCarHistoryDataForm";
 
 class App extends Component {
 
@@ -56,6 +57,7 @@ class App extends Component {
                     <Nav bsStyle="pills" stacked>
                       <NavItem eventKey="first">New contract instance</NavItem>
                       <NavItem eventKey="second">Add a log entry</NavItem>
+                      <NavItem eventKey="third">Read Car History</NavItem>
                     </Nav>
                   </Col>
                   <Col sm={9}>
@@ -63,7 +65,10 @@ class App extends Component {
                       <Tab.Pane eventKey="first">
                         <CreateForm contractService={this.bsService}/>
                       </Tab.Pane>
-                      <Tab.Pane eventKey="second">Tab 2 content</Tab.Pane>
+                      <Tab.Pane eventKey="second"></Tab.Pane>
+                      <Tab.Pane eventKey="third">
+                        <ReadCarHistoryDataForm />
+                      </Tab.Pane>
                     </Tab.Content>
                   </Col>
                 </Row>
