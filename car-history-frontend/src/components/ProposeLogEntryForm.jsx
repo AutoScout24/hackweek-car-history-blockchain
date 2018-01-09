@@ -54,7 +54,7 @@ export default class ProposeLogEntryForm extends React.Component {
 
   async onButtonClick() {
     if (this.isValid()) {
-      this.setState({isLoading: true, error: ''});
+      this.setState({isLoading: true, error: '', transactionHash: ''});
       NProgress.start();
       await this.props.contractService.proposeLogEntry(
           this.state.contractAddress, {

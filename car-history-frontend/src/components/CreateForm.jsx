@@ -58,7 +58,7 @@ export default class CreateForm extends React.Component {
 
   async onButtonClick() {
     if (this.isValid() && this.props.contractService) {
-      this.setState({isLoading: true, error: ''});
+      this.setState({isLoading: true, error: '', contractAddress: ''});
       NProgress.start();
       await this.props.contractService.deployContract({
         vin: this.state.vin,
