@@ -38,10 +38,8 @@ export default class CreateForm extends React.Component {
   }
 
   onButtonClick() {
-    if (this.isValid() && this.props.onSubmit) {
-      this.props.onSubmit({
-        vin: this.state.vin
-      })
+    if (this.isValid() && this.props.contractService) {
+      this.props.contractService.deployContract({vin: this.state.vin});
     }
   }
 
