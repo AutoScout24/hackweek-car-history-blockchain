@@ -43,6 +43,21 @@ export default class ContractService {
     getContractAtAddress(address) {
       return new this.web3.eth.Contract(contractABI, address)
     }
+
+    readContractData(address) {
+      const contract = this.getContractAtAddress(address);
+      return Promise.all([
+          contract.methods.VIN().call(),
+          contract.methods.owner().call(),
+          contract.methods.latestMileage().call()
+        ])
+        .then((data) => ({
+          VIN: data[0],
+          owner: data[1],
+          latestMileage: data[2],
+          logEntries: []
+        }))
+    }
 }
 
 

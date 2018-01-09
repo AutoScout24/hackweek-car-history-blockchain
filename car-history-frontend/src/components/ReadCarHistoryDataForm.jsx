@@ -12,7 +12,10 @@ export default class ReadCarHistoryDataForm extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.onButtonClick = this.onButtonClick.bind(this);
+    this.onAddressChangeHandler = this.onAddressChangeHandler.bind(this);
+
     this.state = {
       contractAddress: '',
       loading: false,
@@ -23,23 +26,17 @@ export default class ReadCarHistoryDataForm extends React.Component {
   onButtonClick() {
     this.setState({loading: true});
 
-    // TODO: replace this fake load with actual loading
-    setTimeout(() => {
-      this.setState({
-        loading: false,
-        contractData: {
-          VIN: "1234",
-          owner: "0x123456",
-          latestMileage: 12345,
-          logEntries: [
-            {comment: "Hallo!", author: "A", mileage: 123},
-            {comment: "Hallo!", author: "A", mileage: 123},
-            {comment: "Hallo!", author: "A", mileage: 123},
-            {comment: "Hallo!", author: "A", mileage: 123}
-          ]
-        }
+    this.props.contractService.readContractData(this.state.contractAddress)
+      .then((data) => {
+        this.setState({
+          loading: false,
+          contractData: data
+        });
       });
-    }, 1000);
+  }
+
+  onAddressChangeHandler(e) {
+    this.setState({contractAddress: e.target.value})
   }
 
   render() {
@@ -52,6 +49,7 @@ export default class ReadCarHistoryDataForm extends React.Component {
               type="text"
               value={this.state.contractAddress}
               placeholder="Enter Contract Address..."
+              onChange={this.onAddressChangeHandler}
             />
             <FormControl.Feedback/>
           </FormGroup>
@@ -68,5 +66,5 @@ export default class ReadCarHistoryDataForm extends React.Component {
 }
 
 ReadCarHistoryDataForm.propTypes = {
-  onSubmit: PropTypes.func
+  contractService: PropTypes.object.isRequired
 };
