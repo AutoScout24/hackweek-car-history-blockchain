@@ -63,6 +63,11 @@ export default class ContractService {
         }));
     }
 
+    getProposalData(address) {
+      return this.getContractAtAddress(address).methods
+        .latestProposedLogEntry().call()
+    }
+
     proposeLogEntry(address, data) {
       return this.getContractAtAddress(address).methods.proposeLogEntry(data.mileage, data.comment)
         .send({from: this.account, gas: defaultGasVolume, gasPrice: defaultGasPrice})
