@@ -21,6 +21,8 @@ contract CarHistory {
         owner = _owner;
         latestMileage = _mileage;
         VIN = _VIN;
+
+        LogEntry(_owner, mileage, "Created");
     }
 
     function proposeLogEntry(uint mileage, string comment) public {
@@ -30,6 +32,10 @@ contract CarHistory {
     function approveLogEntry() public {
         require(msg.sender == owner);               // Only allow the owner to accept a log entry
         require(!latestProposedLogEntry.accepted);  // Do not accept the same log entry twice
+
+        if(latestMileage < latestProposedLogEntry.mileage) {
+            latestMileage = latestProposedLogEntry.mileage;
+        }
 
         LogEntry(latestProposedLogEntry.author, latestProposedLogEntry.mileage, latestProposedLogEntry.comment);
         latestProposedLogEntry.accepted = true;

@@ -149,4 +149,4 @@ module.exports = [
     "name": "LogEntry",
     "type": "event"
   }
-]
+];
