@@ -16,7 +16,11 @@ class App extends Component {
     this.web3 = new Web3(Web3.givenProvider);
 
     this.deployExampleContract = this.deployExampleContract.bind(this);
-    this.onCreateRecord = this.onCreateRecord.bind(this);
+    this.bsService = {
+      createNewContractInstance: (data) => {
+        console.log("createNewContractInstance(). data: " + data);
+      }
+    }.bind(this)
   }
 
   componentDidMount() {
@@ -36,11 +40,6 @@ class App extends Component {
 // <button onClick={this.deployExampleContract}>Deploy example contract!</button>
 // </div>
 
-  onCreateRecord(data) {
-    console.log("Create record" + JSON.stringify(data));
-    // TODO call service
-  }
-
   render() {
     return (
         <div className="container">
@@ -55,14 +54,14 @@ class App extends Component {
                 <Row className="clearfix">
                   <Col sm={3}>
                     <Nav bsStyle="pills" stacked>
-                      <NavItem eventKey="first">Tab 1</NavItem>
-                      <NavItem eventKey="second">Tab 2</NavItem>
+                      <NavItem eventKey="first">New contract instance</NavItem>
+                      <NavItem eventKey="second">Add a log entry</NavItem>
                     </Nav>
                   </Col>
                   <Col sm={9}>
                     <Tab.Content animation>
                       <Tab.Pane eventKey="first">
-                        <CreateForm onSubmit={this.onCreateRecord}/>
+                        <CreateForm contractService={this.bsService}/>
                       </Tab.Pane>
                       <Tab.Pane eventKey="second">Tab 2 content</Tab.Pane>
                     </Tab.Content>
