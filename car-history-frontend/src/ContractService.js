@@ -35,11 +35,10 @@ export default class ContractService {
             .deploy({arguments: [this.account, data.mileage, data.vin]})
             .send({from: this.account})
             .then((contract) => {
-                console.log(contract);
-                if (typeof contract.address !== 'undefined') {
-                    console.log('Contract mined! address: ' + contract.address
-                        + ' transactionHash: ' + contract.transactionHash);
+                if (typeof contract.options.address !== 'undefined') {
+                    console.log('Contract mined! address: ' + contract.options.address);
                 }
+                return contract;
             })
     }
 

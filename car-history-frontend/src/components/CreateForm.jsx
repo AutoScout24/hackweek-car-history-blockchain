@@ -77,10 +77,10 @@ export default class CreateForm extends React.Component {
       await this.props.contractService.deployContract({
         vin: this.state.vin,
         mileage: this.state.mileage
-      }).then(() => {
+      }).then((contract) => {
         this.setState({
           message: {
-            success: "Transaction is successful"
+            success: `Transaction is successful. Contract deployed at ${contract.options.address}`
           }
         });
       }).catch(e => {
