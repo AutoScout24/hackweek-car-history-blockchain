@@ -11,23 +11,48 @@ export default class ProposeLogEntryForm extends React.Component {
 
   constructor(props) {
     super(props);
+
     this.onButtonClick = this.onButtonClick.bind(this);
+    this.changeHandlerForKey = this.changeHandlerForKey.bind(this);
+
     this.state = {
       contractAddress: '',
+      comment: '',
+      mileage: 0
     };
   }
 
   onButtonClick() {
     this.setState({loading: true, success: false, error: null});
 
-    // TODO: replace this fake submit with actual submitting
-    setTimeout(() => {
-      this.setState({
-        loading: false,
-        success: true,
-        error: null
-      });
-    }, 1000);
+    this.props.contractService
+      .proposeLogEntry(this.state.contractAddress, {
+        comment: this.state.comment,
+        mileage: this.state.mileage
+      })
+      .then((e) => {
+        console.log(e);
+        this.setState({
+          loading: false,
+          success: true,
+          error: null
+        });
+      })
+      .catch((err) => {
+        this.setState({
+          loading: false,
+          success: false,
+          error: err
+        });
+      })
+  }
+
+  changeHandlerForKey(key) {
+    return function (e) {
+      let state = {};
+      state[key] = e.target.value;
+      this.setState(state);
+    }.bind(this);
   }
 
   render() {
@@ -40,18 +65,21 @@ export default class ProposeLogEntryForm extends React.Component {
               type="text"
               value={this.state.contractAddress}
               placeholder="Enter Contract Address..."
+              onChange={this.changeHandlerForKey('contractAddress')}
             />
             <ControlLabel>Comment</ControlLabel>
             <FormControl
               type="text"
               value={this.state.comment}
               placeholder="What happened?..."
+              onChange={this.changeHandlerForKey('comment')}
             />
             <ControlLabel>Car Mileage at Event</ControlLabel>
             <FormControl
               type="number"
               value={this.state.mileage}
               placeholder="0"
+              onChange={this.changeHandlerForKey('mileage')}
             />
           </FormGroup>
           <Button onClick={this.onButtonClick}>Propose Log Entry</Button>
@@ -70,3 +98,6 @@ export default class ProposeLogEntryForm extends React.Component {
   }
 }
 
+ProposeLogEntryForm.propTypes = {
+  contractService: PropTypes.object.isRequired
+};

@@ -2,6 +2,9 @@ import Web3 from 'web3';
 import contractABI from './smart-contracts/car-histroy.abi';
 import contractBytecode from './smart-contracts/car-history.bytecode';
 
+const defaultGasPrice = '3000000000000';
+const defaultGasVolume = '4000000';
+
 export default class ContractService {
 
     constructor() {
@@ -24,8 +27,8 @@ export default class ContractService {
 
         const contract = new this.web3.eth.Contract(contractABI,
             null, {
-                gas: '4700000',
-                gasPrice: '300000000000',
+                gas: defaultGasVolume,
+                gasPrice: defaultGasPrice,
                 data: contractBytecode.object
             });
         contract
@@ -57,7 +60,15 @@ export default class ContractService {
           owner: data[1],
           latestMileage: data[2],
           logEntries: data[3].map((e) => e.returnValues)
-        }))
+        }));
+    }
+
+    proposeLogEntry(address, data) {
+      return this.getContractAtAddress(address).methods.proposeLogEntry(data.mileage, data.comment)
+        .send({from: this.account, gas: defaultGasVolume, gasPrice: defaultGasPrice})
+        .then((event) => {
+          console.log(event);
+        });
     }
 }
 

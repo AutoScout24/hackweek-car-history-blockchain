@@ -42,7 +42,7 @@ class App extends Component {
                         <CreateForm contractService={this.contractService}/>
                       </Tab.Pane>
                       <Tab.Pane eventKey="second">
-                        <ProposeLogEntryForm/>
+                        <ProposeLogEntryForm contractService={this.contractService}/>
                       </Tab.Pane>
                       <Tab.Pane eventKey="third">
                         <ReadCarHistoryDataForm contractService={this.contractService}/>
