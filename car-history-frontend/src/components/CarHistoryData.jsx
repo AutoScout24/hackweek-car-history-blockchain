@@ -27,10 +27,10 @@ export default class CarHistoryData extends React.Component {
 CarHistoryData.propTypes = {
   VIN: PropTypes.string.isRequired,
   owner: PropTypes.string.isRequired,
-  latestMileage: PropTypes.number.isRequired,
+  latestMileage: PropTypes.string.isRequired,
   logEntries: PropTypes.arrayOf(PropTypes.shape({
     comment: PropTypes.string,
     author: PropTypes.string,
-    mileage: PropTypes.number
+    mileage: PropTypes.string
   })).isRequired
 };
