@@ -60,6 +60,15 @@ export default class AcceptProposedLogEntryForm extends React.Component {
   }
 
   render() {
+    let approvalState = null;
+    if (this.state.approvalState === StateEnum.Loading) {
+      approvalState = (<h4>Loading...</h4>);
+    } else if (this.state.approvalState === StateEnum.Done) {
+      approvalState = (<h4>Proposed Log Entry Approved</h4>);
+    } else if (this.state.approvalState === StateEnum.Error) {
+      approvalState = (<h4>Approving failed!</h4>);
+    }
+
     return (
       <div>
         <form>
@@ -83,6 +92,7 @@ export default class AcceptProposedLogEntryForm extends React.Component {
             onAccept={this.onAcceptProposal}
           />
         ) : ( null) )}
+        {approvalState}
       </div>
     );
   }
