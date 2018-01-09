@@ -3,7 +3,7 @@ import contractABI from './smart-contracts/car-histroy.abi';
 import contractBytecode from './smart-contracts/car-history.bytecode';
 
 const defaultGasPrice = '3000000000000';
-const defaultGasVolume = '4000000';
+const defaultGasVolume = '450000';
 
 export default class ContractService {
 
