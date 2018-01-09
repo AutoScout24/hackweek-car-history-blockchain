@@ -2,6 +2,51 @@ module.exports = [
   {
     "constant": true,
     "inputs": [],
+    "name": "getNumOfApprovedLogEntries",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "name": "approvedLogEntries",
+    "outputs": [
+      {
+        "name": "author",
+        "type": "address"
+      },
+      {
+        "name": "mileage",
+        "type": "uint256"
+      },
+      {
+        "name": "comment",
+        "type": "string"
+      },
+      {
+        "name": "accepted",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
     "name": "VIN",
     "outputs": [
       {

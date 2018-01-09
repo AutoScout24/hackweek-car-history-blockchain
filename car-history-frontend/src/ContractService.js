@@ -53,14 +53,27 @@ export default class ContractService {
           contract.methods.VIN().call(),
           contract.methods.owner().call(),
           contract.methods.latestMileage().call(),
-          contract.getPastEvents('allEvents')
+          this.getLogEntries(address)
         ])
         .then((data) => ({
           VIN: data[0],
           owner: data[1],
           latestMileage: data[2],
-          logEntries: data[3].map((e) => e.returnValues)
+          logEntries: data[3]
         }));
+    }
+
+    async getLogEntries(address) {
+      // TODO: reading from internal array instead of logs for now.
+      // This is due to metamask not yet supporting logs/events via web3.js 1.0.
+      // (see https://github.com/MetaMask/metamask-extension/issues/2350)
+      const contract = this.getContractAtAddress(address);
+      const numLogEntries = await contract.methods.getNumOfApprovedLogEntries().call();
+      let logEntriesPromises = [];
+      for(let i = 0; i < numLogEntries; i++) {
+        logEntriesPromises.push(contract.methods.approvedLogEntries(i).call());
+      }
+      return Promise.all(logEntriesPromises);
     }
 
     getProposalData(address) {
