@@ -50,7 +50,7 @@ export default class ReadCarHistoryDataForm extends React.Component {
             <ControlLabel>Car History Contract Address</ControlLabel>
             <FormControl
               type="text"
-              value={this.state.vin}
+              value={this.state.contractAddress}
               placeholder="Enter Contract Address..."
             />
             <FormControl.Feedback/>
