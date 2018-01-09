@@ -49,13 +49,14 @@ export default class ContractService {
       return Promise.all([
           contract.methods.VIN().call(),
           contract.methods.owner().call(),
-          contract.methods.latestMileage().call()
+          contract.methods.latestMileage().call(),
+          contract.getPastEvents('allEvents')
         ])
         .then((data) => ({
           VIN: data[0],
           owner: data[1],
           latestMileage: data[2],
-          logEntries: []
+          logEntries: data[3].map((e) => e.returnValues)
         }))
     }
 }
