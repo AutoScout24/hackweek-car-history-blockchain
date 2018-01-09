@@ -86,6 +86,8 @@ export default class ContractService {
         .send({from: this.account, gas: defaultGasVolume, gasPrice: defaultGasPrice})
         .then((event) => {
           console.log(event);
+          console.log(event.transactionHash);
+          return event.transactionHash;
         });
     }
 

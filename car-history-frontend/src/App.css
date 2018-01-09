@@ -29,3 +29,12 @@
 #main-panel {
   padding: 10px;
 }
+
+.hash {
+  font-family: monospace;
+  font-size: 18px;
+  background-color: #f5f5f5;
+  padding: 5px;
+  border-radius: 5px;
+  margin: 0 10px;
+}

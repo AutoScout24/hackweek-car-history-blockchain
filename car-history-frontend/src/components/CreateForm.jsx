@@ -4,11 +4,14 @@ import {
   FormGroup,
   ControlLabel,
   FormControl,
-  Button
+  Button,
+  Panel
 } from 'react-bootstrap';
+import PropTypes from "prop-types";
+import NProgress from 'nprogress';
 
 import './styles/CreateForm.css';
-import PropTypes from "prop-types";
+import 'nprogress/nprogress.css';
 
 export default class CreateForm extends React.Component {
   constructor(props) {
@@ -16,11 +19,17 @@ export default class CreateForm extends React.Component {
     this.handleChange = this.handleChange.bind(this);
     this.onButtonClick = this.onButtonClick.bind(this);
     this.isValid = this.isValid.bind(this);
-    this.state = {
+    this.state = CreateForm.initialState();
+  }
+
+
+  static initialState() {
+    return {
       vin: '',
       mileage: 0,
       isLoading: false,
-      message: {}
+      error: '',
+      contractAddress: ''
     };
   }
 
@@ -32,118 +41,94 @@ export default class CreateForm extends React.Component {
   getValidationState(id) {
     switch (id) {
       case 'vin':
-        const length = this.state.vin.length;
-        if (length > 5) {
-          return 'success';
-        } else if (length > 0) {
-          return 'error';
-        }
-        break;
+        return this.state.vin.length > 5 ? 'success' : 'error';
       case 'mileage':
-        if (!isNaN(this.state.mileage) && this.state.mileage >= 0) {
-          return 'success';
-        } else {
-          return 'error';
-        }
+        return !isNaN(this.state.mileage) && this.state.mileage >= 0
+            ? 'success' : 'error';
       default:
-        break;
+        return null;
     }
-
-    return null;
   }
 
   handleChange(e) {
-    switch (e.target.id) {
-      case 'vin':
-        this.setState({vin: e.target.value});
-        break;
-      case 'mileage':
-        this.setState({mileage: e.target.value});
-        break;
-      default:
-        break;
-    }
+    const d = {};
+    d[e.target.id] = e.target.value;
+    this.setState(d);
   }
 
   async onButtonClick() {
     if (this.isValid() && this.props.contractService) {
-      this.setState({
-        message: {
-          info: "Transaction is running"
-        },
-        isLoading: true
-      });
-      console.log("Loading....");
+      this.setState({isLoading: true, error: ''});
+      NProgress.start();
       await this.props.contractService.deployContract({
         vin: this.state.vin,
         mileage: this.state.mileage
-      }).then((contract) => {
-        this.setState({
-          message: {
-            success: `Transaction is successful. Contract deployed at ${contract.options.address}`
-          }
-        });
+      }).then((address) => {
+        this.setState({contractAddress: contract.options.address});
       }).catch(e => {
         console.log("Error: ", e);
-        this.setState({
-          message: {
-            error: e.message
-          }
-        })
+        this.setState({error: e})
       }).then(() => {
+        NProgress.done();
         this.setState({isLoading: false});
       });
-      console.log("Finished");
     }
   }
 
   render() {
 
-    const alert = () => {
-      if (this.state.message.error) {
-        return <Alert bsStyle="danger">{this.state.message.error}</Alert>
-      } else if (this.state.message.info) {
-        return <Alert bsStyle="info">{this.state.message.info}</Alert>
-      } else if (this.state.message.success) {
-        return <Alert bsStyle="success">{this.state.message.success}</Alert>
+    const error = () => {
+      if (this.state.error) {
+        return <Alert bsStyle="danger">{this.state.error}</Alert>
+      }
+    };
+
+    const success = () => {
+      if (this.state.contractAddress) {
+        return <Panel bsStyle="success">
+          <Panel.Heading>
+            <Panel.Title componentClass="h3">Contract is created</Panel.Title>
+          </Panel.Heading>
+          <Panel.Body>
+            Contract address: <span className="hash">{this.state.contractAddress}</span>
+          </Panel.Body>
+        </Panel>
       }
     };
 
     return (
         <div>
-          {alert()}
+          {error()}
+          {success()}
           <form>
             <FormGroup
                 controlId="vin"
-                validationState={this.getValidationState("vin")}
-            >
+                validationState={this.getValidationState("vin")}>
               <ControlLabel>Vehicle identification number</ControlLabel>
               <FormControl
                   type="text"
                   value={this.state.vin}
                   placeholder="Enter VIN..."
-                  onChange={this.handleChange}
-              />
+                  onChange={this.handleChange}/>
               <FormControl.Feedback/>
             </FormGroup>
             <FormGroup
                 controlId="mileage"
-                validationState={this.getValidationState("mileage")}
-            >
+                validationState={this.getValidationState("mileage")}>
               <ControlLabel>Vehicle mileage</ControlLabel>
               <FormControl
-                  type="text"
+                  type="number"
                   value={this.state.mileage}
                   placeholder="Enter Mileage..."
-                  onChange={this.handleChange}
-              />
+                  onChange={this.handleChange}/>
               <FormControl.Feedback/>
             </FormGroup>
             <Button
                 bsStyle="primary"
                 disabled={!this.isValid() || this.state.isLoading}
-                onClick={this.onButtonClick}>{this.state.isLoading
-                ? 'Loading...' : 'Create record'}</Button>
+                onClick={this.onButtonClick}>
+              {this.state.isLoading ? 'Loading...' : 'Create record'}
+            </Button>
           </form>
         </div>
     );

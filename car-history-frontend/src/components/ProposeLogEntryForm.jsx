@@ -1,11 +1,16 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {
+  Panel,
+  Alert,
   FormGroup,
   ControlLabel,
   FormControl,
   Button
 } from 'react-bootstrap';
+import NProgress from 'nprogress';
+
+import 'nprogress/nprogress.css';
 
 export default class ProposeLogEntryForm extends React.Component {
 
@@ -13,88 +18,131 @@ export default class ProposeLogEntryForm extends React.Component {
     super(props);
 
     this.onButtonClick = this.onButtonClick.bind(this);
-    this.changeHandlerForKey = this.changeHandlerForKey.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.state = ProposeLogEntryForm.initialState();
+  }
 
-    this.state = {
+  static initialState() {
+    return {
       contractAddress: '',
+      transactionHash: '',
       comment: '',
-      mileage: 0
+      mileage: 0,
+      error: ''
     };
   }
 
-  onButtonClick() {
-    this.setState({loading: true, success: false, error: null});
-
-    this.props.contractService
-      .proposeLogEntry(this.state.contractAddress, {
-        comment: this.state.comment,
-        mileage: this.state.mileage
-      })
-      .then((e) => {
-        console.log(e);
-        this.setState({
-          loading: false,
-          success: true,
-          error: null
-        });
-      })
-      .catch((err) => {
-        this.setState({
-          loading: false,
-          success: false,
-          error: err
-        });
-      })
+  isValid() {
+    return this.getValidationState("contractAddress") === "success"
+        && this.getValidationState("comment") === "success"
+        && this.getValidationState("mileage") === "success";
   }
 
-  changeHandlerForKey(key) {
-    return function (e) {
-      let state = {};
-      state[key] = e.target.value;
-      this.setState(state);
-    }.bind(this);
+  getValidationState(id) {
+    switch (id) {
+      case 'contractAddress':
+        return this.state.contractAddress.length > 1 ? 'success' : 'error';
+      case 'comment':
+        return this.state.comment.length > 1 ? 'success' : 'error';
+      case 'mileage':
+        const mileage = this.state.mileage;
+        return !isNaN(mileage) && mileage >= 0 ? 'success' : 'error';
+      default:
+        return null;
+    }
+  }
+
+  async onButtonClick() {
+    if (this.isValid()) {
+      this.setState({isLoading: true, error: ''});
+      NProgress.start();
+      await this.props.contractService.proposeLogEntry(
+          this.state.contractAddress, {
+            comment: this.state.comment,
+            mileage: this.state.mileage
+          })
+      .then((transactionHash) => {
+        this.setState({transactionHash: transactionHash})
+      })
+      .catch(e => {
+        console.log("Error: ", e);
+        this.setState({error: e.message})
+      }).then(() => {
+        NProgress.done();
+        this.setState({isLoading: false});
+      });
+    }
+  }
+
+  handleChange(e) {
+    const d = {};
+    d[e.target.id] = e.target.value;
+    this.setState(d);
   }
 
   render() {
-    return (
-      <div>
-        <form>
-          <FormGroup>
-            <ControlLabel>Car History Contract Address</ControlLabel>
-            <FormControl
+
+    const error = () => {
+      if (this.state.error) {
+        return <Alert bsStyle="danger">{this.state.error}</Alert>
+      }
+    };
+
+    const success = () => {
+      if (this.state.transactionHash) {
+        return <Panel bsStyle="success">
+          <Panel.Heading>
+            <Panel.Title componentClass="h3">Transaction is finished</Panel.Title>
+          </Panel.Heading>
+          <Panel.Body>
+            Transaction hash: <span className="hash">{this.state.transactionHash}</span>
+          </Panel.Body>
+        </Panel>
+      }
+    };
+
+    return <div>
+      {error()}
+      {success()}
+      <form>
+        <FormGroup
+            controlId="contractAddress"
+            validationState={this.getValidationState('contractAddress')}>
+          <ControlLabel>Car History Contract Address</ControlLabel>
+          <FormControl
               type="text"
               value={this.state.contractAddress}
               placeholder="Enter Contract Address..."
-              onChange={this.changeHandlerForKey('contractAddress')}
-            />
-            <ControlLabel>Comment</ControlLabel>
-            <FormControl
+              onChange={this.handleChange}/>
+        </FormGroup>
+        <FormGroup
+            controlId="comment"
+            validationState={this.getValidationState('comment')}>
+          <ControlLabel>Comment</ControlLabel>
+          <FormControl
               type="text"
               value={this.state.comment}
               placeholder="What happened?..."
-              onChange={this.changeHandlerForKey('comment')}
-            />
-            <ControlLabel>Car Mileage at Event</ControlLabel>
-            <FormControl
+              onChange={this.handleChange}/>
+        </FormGroup>
+        <FormGroup
+            controlId="mileage"
+            validationState={this.getValidationState('mileage')}>
+          <ControlLabel>Car Mileage at Event</ControlLabel>
+          <FormControl
               type="number"
               value={this.state.mileage}
               placeholder="0"
-              onChange={this.changeHandlerForKey('mileage')}
-            />
-          </FormGroup>
-          <Button onClick={this.onButtonClick}>Propose Log Entry</Button>
-        </form>
-        {this.state.loading && <h4>Loading...</h4>}
-        {this.state.success ? (
-          <h4>Proposal submitted</h4>
-        ) : ( this.state.error ? (
-          <div>
-            <h4>Error while submitting proposal!</h4>
-            <p>{this.state.error}</p>
-          </div>
-        ) : ( null ))}
-      </div>
-    );
+              onChange={this.handleChange}/>
+        </FormGroup>
+        <Button
+            bsStyle="primary"
+            disabled={!this.isValid() || this.state.isLoading}
+            onClick={this.onButtonClick}>
+          {this.state.isLoading ? 'Loading...' : 'Propose Log Entry'}
+        </Button>
+      </form>
+    </div>;
   }
 }
 
