@@ -5,10 +5,6 @@ import {
 } from 'react-bootstrap';
 
 export default class ProposedLogEntry extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   render() {
     if (!this.props.accepted && this.props.author !== "0x0000000000000000000000000000000000000000") {
       return (
