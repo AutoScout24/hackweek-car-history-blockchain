@@ -10,12 +10,16 @@ import ReadCarHistoryDataForm from "./components/ReadCarHistoryDataForm";
 import ContractService from "./ContractService"
 import ProposeLogEntryForm from "./components/ProposeLogEntryForm";
 import AcceptProposedLogEntryForm from "./components/AcceptProposedLogEntryForm";
+import CreateTrustedIdentitiesStoreForm from "./components/trusted-identities/CreateTrustedIdentitiesStoreForm";
+import TrustedIdentitiesService from "./TrustedIdentitiesService";
+import TrustIdentityFrom from "./components/trusted-identities/TrustIdentityFrom";
 
 class App extends Component {
 
   constructor(props) {
     super(props);
     this.contractService = new ContractService();
+    this.trustedIdentitiesService = new TrustedIdentitiesService(this.contractService, "0x8b8Da3fe4821833e31120D92eb725251865abaC6");
   }
 
   render() {
@@ -36,6 +40,9 @@ class App extends Component {
                       <NavItem eventKey="second">Propose a log entry</NavItem>
                       <NavItem eventKey="third">Accept a proposed log entry</NavItem>
                       <NavItem eventKey="fourth">Read Car History</NavItem>
+                      <hr/>
+                      <NavItem eventKey="fifth">Trust Identity</NavItem>
+                      <NavItem eventKey="sixth">Create Trust Store</NavItem>
                     </Nav>
                   </Col>
                   <Col sm={9}>
@@ -51,6 +58,12 @@ class App extends Component {
                       </Tab.Pane>
                       <Tab.Pane eventKey="fourth">
                         <ReadCarHistoryDataForm contractService={this.contractService}/>
+                      </Tab.Pane>
+                      <Tab.Pane eventKey="fifth">
+                        <TrustIdentityFrom trustedIdentitiesService={this.trustedIdentitiesService}/>
+                      </Tab.Pane>
+                      <Tab.Pane eventKey="sixth">
+                        <CreateTrustedIdentitiesStoreForm trustedIdentitiesService={this.trustedIdentitiesService}/>
                       </Tab.Pane>
                     </Tab.Content>
                   </Col>
