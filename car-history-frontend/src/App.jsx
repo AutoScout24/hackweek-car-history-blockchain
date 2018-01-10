@@ -15,6 +15,7 @@ import CreateTrustedIdentitiesStoreForm from "./components/trusted-identities/Cr
 import TrustedIdentitiesService from "./TrustedIdentitiesService";
 import TrustIdentityFrom from "./components/trusted-identities/TrustIdentityFrom";
 import TrustLabel from "./components/trusted-identities/TrustLabel";
+import AddVinForm from "./components/AddVinForm";
 
 const defaultTrustStoreAddressOnRopstenTestNet = "0x0e43ae88a0bacdd4be3b9abfbfe4c0b7e8f8c080";
 
@@ -53,11 +54,12 @@ class App extends Component {
           </div>
           <div className="row">
             <div className="col-lg-12">
-              <Tab.Container id="left-tabs-example" defaultActiveKey="first">
+              <Tab.Container id="left-tabs-example" defaultActiveKey="createNew">
                 <Row className="clearfix">
                   <Col sm={3}>
                     <Nav bsStyle="pills" stacked>
-                      <NavItem eventKey="first">New contract instance</NavItem>
+                      <NavItem eventKey="createNew">Create new contract for VIN</NavItem>
+                      <NavItem eventKey="addExisting">Add existing contract for VIN</NavItem>
                       <NavItem eventKey="second">Propose a log entry</NavItem>
                       <NavItem eventKey="third">Accept a proposed log entry</NavItem>
                       <NavItem eventKey="fourth">Read Car History</NavItem>
@@ -68,8 +70,11 @@ class App extends Component {
                   </Col>
                   <Col sm={9}>
                     <Tab.Content animation>
-                      <Tab.Pane eventKey="first">
+                      <Tab.Pane eventKey="createNew">
                         <CreateForm contractService={this.contractService} vinRegistryService={this.vinRegistryService} />
+                      </Tab.Pane>
+                      <Tab.Pane eventKey="addExisting">
+                        <AddVinForm vinRegistryService={this.vinRegistryService} />
                       </Tab.Pane>
                       <Tab.Pane eventKey="second">
                         <ProposeLogEntryForm contractService={this.contractService}/>
