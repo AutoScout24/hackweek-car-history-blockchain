@@ -23,7 +23,7 @@ export default class VinPicker extends React.Component {
     });
 
     return (
-      <FormGroup>
+      <FormGroup controlId={this.props.controlId} validationState={this.props.validationState}>
         <ControlLabel>Choose the car</ControlLabel>
         <FormControl
           componentClass="select"
@@ -39,5 +39,7 @@ export default class VinPicker extends React.Component {
 }
 
 VinPicker.propTypes = {
-  onChange: PropTypes.func
+  controlId: PropTypes.string,
+  onChange: PropTypes.func,
+  validationState: PropTypes.oneOf(['success', 'warning', 'error', null])
 };

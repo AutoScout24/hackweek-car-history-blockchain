@@ -11,6 +11,7 @@ import ProposedLogEntry from "./ProposedLogEntry";
 import NProgress from 'nprogress';
 
 import 'nprogress/nprogress.css';
+import VinPicker from "./VinPicker";
 
 const StateEnum = {
   None: 0,
@@ -103,16 +104,7 @@ export default class AcceptProposedLogEntryForm extends React.Component {
         <div>
           {error()}
           <form>
-            <FormGroup>
-              <ControlLabel>Car History Contract Address</ControlLabel>
-              <FormControl
-                  type="text"
-                  value={this.state.contractAddress}
-                  placeholder="Enter Contract Address..."
-                  onChange={this.onAddressChangeHandler}
-              />
-              <FormControl.Feedback/>
-            </FormGroup>
+            <VinPicker onChange={this.onAddressChangeHandler}/>
             <Button
                 onClick={this.onButtonClick}
                 disabled={this.state.approvalState === StateEnum.Loading}
