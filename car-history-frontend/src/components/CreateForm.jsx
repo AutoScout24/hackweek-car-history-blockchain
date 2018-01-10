@@ -64,6 +64,7 @@ export default class CreateForm extends React.Component {
         vin: this.state.vin,
         mileage: this.state.mileage
       }).then((contract) => {
+        this.vinRegistryService.setEntry(this.state.vin, contract.options.address);
         this.setState({contractAddress: contract.options.address});
       }).catch(e => {
         console.log("Error: ", e);
@@ -136,5 +137,6 @@ export default class CreateForm extends React.Component {
 }
 
 CreateForm.propTypes = {
-  contractService: PropTypes.object.isRequired
+  contractService: PropTypes.object.isRequired,
+  vinRegistryService: PropTypes.object.isRequired
 };

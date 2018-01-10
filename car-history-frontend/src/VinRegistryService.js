@@ -1,5 +1,5 @@
 
-class VinRegistryService {
+export default class VinRegistryService {
 
   setEntry(vin, contractAddress) {
     const registry = this.getAllEntries();

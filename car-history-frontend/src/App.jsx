@@ -8,6 +8,7 @@ import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import ReadCarHistoryDataForm from "./components/ReadCarHistoryDataForm";
 import ContractService from "./ContractService"
+import VinRegistryService from "./VinRegistryService"
 import ProposeLogEntryForm from "./components/ProposeLogEntryForm";
 import AcceptProposedLogEntryForm from "./components/AcceptProposedLogEntryForm";
 import CreateTrustedIdentitiesStoreForm from "./components/trusted-identities/CreateTrustedIdentitiesStoreForm";
@@ -21,6 +22,7 @@ class App extends Component {
 
   constructor(props) {
     super(props);
+    this.vinRegistryService = new VinRegistryService();
     this.contractService = new ContractService();
     this.trustedIdentitiesService = new TrustedIdentitiesService(this.contractService, defaultTrustStoreAddressOnRopstenTestNet);
     TrustedIdentitiesService.defaultService = this.trustedIdentitiesService;
@@ -67,7 +69,7 @@ class App extends Component {
                   <Col sm={9}>
                     <Tab.Content animation>
                       <Tab.Pane eventKey="first">
-                        <CreateForm contractService={this.contractService}/>
+                        <CreateForm contractService={this.contractService} vinRegistryService={this.vinRegistryService} />
                       </Tab.Pane>
                       <Tab.Pane eventKey="second">
                         <ProposeLogEntryForm contractService={this.contractService}/>
