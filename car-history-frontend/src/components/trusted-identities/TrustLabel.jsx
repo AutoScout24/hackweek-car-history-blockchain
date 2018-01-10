@@ -9,7 +9,6 @@ export default class TrustLabel extends React.Component {
     super(props);
 
     this.trustedIdentitiesService = TrustedIdentitiesService.defaultService;
-    debugger;
 
     this.state = {
       name: 'Unknown',
@@ -19,19 +18,11 @@ export default class TrustLabel extends React.Component {
   }
 
   componentDidMount() {
-    this.setState({loading: true});
-    this.trustedIdentitiesService.getVerificationStatus(this.props.idAddress)
-      .then((data) => {
-        console.log(data);
-        this.setState({name: data.name || 'Unknown', trustLevel: data.trustLevel});
-      })
-      .catch((e) => {
-        console.error(e);
-        this.setState({name: 'Unknown', trustLevel: TrustLevelEnum.Unknown});
-      })
-      .then(() => {
-        this.setState({loading: false});
-      });
+    this.loadVerificationInfo(this.props.idAddress)
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.loadVerificationInfo(nextProps.idAddress);
   }
 
   render() {
@@ -56,6 +47,22 @@ export default class TrustLabel extends React.Component {
     return (
       <span>{this.state.name} {trustLevel} ({this.props.idAddress})</span>
     );
+  }
+
+  loadVerificationInfo(address) {
+    this.setState({loading: true});
+    this.trustedIdentitiesService.getVerificationStatus(address)
+      .then((data) => {
+        console.log(data);
+        this.setState({name: data.name || 'Unknown', trustLevel: data.trustLevel});
+      })
+      .catch((e) => {
+        console.error(e);
+        this.setState({name: 'Unknown', trustLevel: TrustLevelEnum.Unknown});
+      })
+      .then(() => {
+        this.setState({loading: false});
+      });
   }
 }
 
