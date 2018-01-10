@@ -11,6 +11,7 @@ import CarHistoryData from "./CarHistoryData";
 import NProgress from 'nprogress';
 
 import 'nprogress/nprogress.css';
+import VinPicker from "./VinPicker";
 
 export default class ReadCarHistoryDataForm extends React.Component {
 
@@ -61,16 +62,7 @@ export default class ReadCarHistoryDataForm extends React.Component {
         <div>
           {error()}
           <form>
-            <FormGroup>
-              <ControlLabel>Car History Contract Address</ControlLabel>
-              <FormControl
-                  type="text"
-                  value={this.state.contractAddress}
-                  placeholder="Enter Contract Address..."
-                  onChange={this.onAddressChangeHandler}
-              />
-              <FormControl.Feedback/>
-            </FormGroup>
+            <VinPicker onChange={this.onAddressChangeHandler}/>
             <Button onClick={this.onButtonClick}
                     disabled={this.state.loading}
                     bsStyle="primary">
