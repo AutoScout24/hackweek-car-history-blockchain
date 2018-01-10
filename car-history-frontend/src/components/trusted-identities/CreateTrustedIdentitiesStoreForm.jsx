@@ -66,6 +66,11 @@ export default class CreateTrustedIdentitiesStoreForm extends React.Component {
 
     return (
       <div>
+        <Panel>
+          <Panel.Body>
+            Current Trust Store Address: <span className="hash">{this.props.trustedIdentitiesService.contract.options.address}</span>
+          </Panel.Body>
+        </Panel>
         {error()}
         {success()}
         <form>

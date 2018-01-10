@@ -7,7 +7,7 @@ contract TrustedIdentities {
         string name;
     }
 
-    enum TrustLevel { Fraud, Verified, Admin, Unknown }
+    enum TrustLevel { Unknown, Fraud, Verified, Admin }
 
     mapping(address => TrustEntry) public trustedIdentities;
 

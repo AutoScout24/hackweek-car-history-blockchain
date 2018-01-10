@@ -14,12 +14,14 @@ import CreateTrustedIdentitiesStoreForm from "./components/trusted-identities/Cr
 import TrustedIdentitiesService from "./TrustedIdentitiesService";
 import TrustIdentityFrom from "./components/trusted-identities/TrustIdentityFrom";
 
+const defaultTrustStoreAddressOnRopstenTestNet = "0x0e43ae88a0bacdd4be3b9abfbfe4c0b7e8f8c080";
+
 class App extends Component {
 
   constructor(props) {
     super(props);
     this.contractService = new ContractService();
-    this.trustedIdentitiesService = new TrustedIdentitiesService(this.contractService, "0x8b8Da3fe4821833e31120D92eb725251865abaC6");
+    this.trustedIdentitiesService = new TrustedIdentitiesService(this.contractService, defaultTrustStoreAddressOnRopstenTestNet);
     TrustedIdentitiesService.defaultService = this.trustedIdentitiesService;
   }
 
@@ -43,7 +45,7 @@ class App extends Component {
                       <NavItem eventKey="fourth">Read Car History</NavItem>
                       <hr/>
                       <NavItem eventKey="fifth">Trust Identity</NavItem>
-                      <NavItem eventKey="sixth">Create Trust Store</NavItem>
+                      <NavItem eventKey="sixth">Trust Store Setting</NavItem>
                     </Nav>
                   </Col>
                   <Col sm={9}>

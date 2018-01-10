@@ -5,10 +5,10 @@ const defaultGasPrice = '300000000000';
 const defaultGasVolume = '4000000';
 
 export const TrustLevelEnum = {
-  Fraud: 0,
-  Verified: 1,
-  Admin: 2,
-  Unknown: 3
+  Unknown: 0,
+  Fraud: 1,
+  Verified: 2,
+  Admin: 3,
 };
 
 export default class TrustedIdentitiesService {
