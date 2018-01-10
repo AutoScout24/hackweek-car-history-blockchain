@@ -1,6 +1,7 @@
 import Web3 from 'web3';
 import contractABI from './smart-contracts/car-histroy.abi';
 import contractBytecode from './smart-contracts/car-history.bytecode';
+import {UseGivenProvider} from "./FeatureSwitches";
 
 const defaultGasPrice = '300000000000';
 const defaultGasVolume = '4000000';
@@ -8,8 +9,22 @@ const defaultGasVolume = '4000000';
 export default class ContractService {
 
     constructor() {
-        // this.web3 = new Web3(Web3.givenProvider);
+      if (UseGivenProvider) {
+        this.web3 = new Web3(Web3.givenProvider);
+      } else {
         this.web3 = new Web3('http://ec2-34-242-87-218.eu-west-1.compute.amazonaws.com:8545/');
+      }
+    }
+
+    // For use with "givenProvider".
+    loadAccounts() {
+      return this.web3.eth.getAccounts()
+        .then((accounts) => {
+          this.account = (accounts[0]);
+          return this.account;
+        }).catch((e) => {
+          console.log("Error in getting account", e);
+        });
     }
 
     switchAccount(key) {
@@ -32,16 +47,25 @@ export default class ContractService {
                 data: contractBytecode.object
             });
 
-        const transaction = contract.deploy({
+        let transactionPromise;
+        if (UseGivenProvider) {
+          transactionPromise = contract
+            .deploy({arguments: [this.account, data.mileage, data.vin]})
+            .send({from: this.account})
+        } else {
+          const transaction = contract.deploy({
             arguments: [this.account.address, data.mileage, data.vin]
-        });
+          });
+          transaction.gas = defaultGasVolume;
 
-        transaction.gas=defaultGasVolume;
-
-        return this.account.signTransaction(transaction)
+          transactionPromise = this.account.signTransaction(transaction)
             .then((signed) => {
-                return this.web3.eth.sendSignedTransaction(signed.rawTransaction)
-            }).then((contract) => {
+              return this.web3.eth.sendSignedTransaction(signed.rawTransaction)
+            })
+        }
+
+        return transactionPromise
+            .then((contract) => {
                 if (typeof contract.options.address !== 'undefined') {
                     console.log('Contract mined! address: ' + contract.options.address);
                 }

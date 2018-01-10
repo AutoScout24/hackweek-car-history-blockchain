@@ -17,6 +17,7 @@ import TrustLabel from "./components/trusted-identities/TrustLabel";
 import AddVinForm from "./components/vin-management/AddVinForm";
 
 import './App.css';
+import {UseGivenProvider} from "./FeatureSwitches";
 
 const defaultTrustStoreAddressOnRopstenTestNet = "0x0e43ae88a0bacdd4be3b9abfbfe4c0b7e8f8c080";
 
@@ -28,6 +29,11 @@ class App extends Component {
     this.contractService = new ContractService();
     this.trustedIdentitiesService = new TrustedIdentitiesService(this.contractService, defaultTrustStoreAddressOnRopstenTestNet);
     TrustedIdentitiesService.defaultService = this.trustedIdentitiesService;
+
+    if(UseGivenProvider) {
+      this.contractService.loadAccounts()
+        .then((currentAccount) => this.setState({currentAccount}));
+    }
 
     this.state = {currentAccount: ''};
   }
@@ -61,17 +67,19 @@ class App extends Component {
 
             </header>
           </div>
-            <div className="col-lg-3 col-lg-offset-9">
-                <Select
-                    name="form-field-name"
-                    value={value}
-                    onChange={this.handleChange}
-                    options={[
-                        { value: '0x1187c0ea82926a933ecf57bdea043a8cbc48b0044636532134d6910bed8aba50', label: 'Owner' },
-                        { value: '0x1187c0ea82926a933ecf57bdea043a8cbc48b0044636532134d6910bed8aba50', label: 'Handler' },
-                    ]}
-                />
-            </div>
+          { !UseGivenProvider &&
+          <div className="col-lg-3 col-lg-offset-9">
+              <Select
+                  name="form-field-name"
+                  value={value}
+                  onChange={this.handleChange}
+                  options={[
+                      { value: '0x1187c0ea82926a933ecf57bdea043a8cbc48b0044636532134d6910bed8aba50', label: 'Owner' },
+                      { value: '0x1187c0ea82926a933ecf57bdea043a8cbc48b0044636532134d6910bed8aba50', label: 'Handler' },
+                  ]}
+              />
+          </div>
+          }
           <div className="row">
             <div className="col-lg-12">
               <Tab.Container id="left-tabs-example" defaultActiveKey="createNew">
