@@ -2,16 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Alert,
-  FormGroup,
-  ControlLabel,
-  FormControl,
   Button
 } from 'react-bootstrap';
 import CarHistoryData from "./CarHistoryData";
 import NProgress from 'nprogress';
 
 import 'nprogress/nprogress.css';
-import VinPicker from "./VinPicker";
+import VinPicker from "./vin-management/VinPicker";
 
 export default class ReadCarHistoryDataForm extends React.Component {
 

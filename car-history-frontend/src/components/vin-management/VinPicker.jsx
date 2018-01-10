@@ -5,7 +5,7 @@ import {
   ControlLabel,
   FormControl,
 } from 'react-bootstrap';
-import VinRegistryService from "../VinRegistryService";
+import VinRegistryService from "../../VinRegistryService";
 
 export default class VinPicker extends React.Component {
 

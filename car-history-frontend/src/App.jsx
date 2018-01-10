@@ -1,11 +1,8 @@
 import React, {Component} from 'react';
 import {Row, Col, Nav, NavItem, Tab, Navbar} from 'react-bootstrap';
-import CreateForm from './components/CreateForm';
 import Select from 'react-select';
 import 'react-select/dist/react-select.css';
-
-import './App.css';
-
+import CreateForm from './components/vin-management/CreateForm';
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap/dist/css/bootstrap-theme.css';
 import ReadCarHistoryDataForm from "./components/ReadCarHistoryDataForm";
@@ -17,7 +14,9 @@ import CreateTrustedIdentitiesStoreForm from "./components/trusted-identities/Cr
 import TrustedIdentitiesService from "./TrustedIdentitiesService";
 import TrustIdentityFrom from "./components/trusted-identities/TrustIdentityFrom";
 import TrustLabel from "./components/trusted-identities/TrustLabel";
-import AddVinForm from "./components/AddVinForm";
+import AddVinForm from "./components/vin-management/AddVinForm";
+
+import './App.css';
 
 const defaultTrustStoreAddressOnRopstenTestNet = "0x0e43ae88a0bacdd4be3b9abfbfe4c0b7e8f8c080";
 

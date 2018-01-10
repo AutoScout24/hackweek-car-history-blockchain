@@ -8,7 +8,7 @@ import ProposedLogEntry from "./ProposedLogEntry";
 import NProgress from 'nprogress';
 
 import 'nprogress/nprogress.css';
-import VinPicker from "../VinPicker";
+import VinPicker from "../vin-management/VinPicker";
 
 const StateEnum = {
   None: 0,
