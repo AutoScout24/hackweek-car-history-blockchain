@@ -60,7 +60,7 @@ class App extends Component {
                       <NavItem eventKey="third">Accept a proposed log entry</NavItem>
                       <NavItem eventKey="fourth">Read Car History</NavItem>
                       <hr/>
-                      <NavItem eventKey="fifth">Trust Identity</NavItem>
+                      <NavItem eventKey="fifth">Change Trust State</NavItem>
                       <NavItem eventKey="sixth">Trust Store Setting</NavItem>
                     </Nav>
                   </Col>

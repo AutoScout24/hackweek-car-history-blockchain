@@ -78,7 +78,7 @@ export default class CreateTrustedIdentitiesStoreForm extends React.Component {
             bsStyle="primary"
             disabled={this.state.isLoading}
             onClick={this.onButtonClick}>
-            {this.state.isLoading ? 'Loading...' : 'Create new Trust Store'}
+            {this.state.isLoading ? 'Loading...' : 'Create and use new Trust Store'}
           </Button>
         </form>
       </div>
