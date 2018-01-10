@@ -58,8 +58,8 @@ class App extends Component {
                 <Row className="clearfix">
                   <Col sm={3}>
                     <Nav bsStyle="pills" stacked>
-                      <NavItem eventKey="createNew">Create new contract for VIN</NavItem>
-                      <NavItem eventKey="addExisting">Add existing contract for VIN</NavItem>
+                      <NavItem eventKey="createNew">Create new contract for a car</NavItem>
+                      <NavItem eventKey="addExisting">Add existing contract for a car</NavItem>
                       <NavItem eventKey="second">Propose a log entry</NavItem>
                       <NavItem eventKey="third">Accept a proposed log entry</NavItem>
                       <NavItem eventKey="fourth">Read Car History</NavItem>

@@ -17,7 +17,7 @@ export default class ProposedLogEntry extends React.Component {
             <Panel id="panel-data">
               <Panel.Heading>
                 <Panel.Title componentClass="h3">
-                  Proposal Data
+                  Proposed Log Entry Data
                 </Panel.Title>
               </Panel.Heading>
               <Panel.Body>
