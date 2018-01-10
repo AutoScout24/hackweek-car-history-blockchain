@@ -130,6 +130,7 @@ export default class TrustIdentityFrom extends React.Component {
           controlId="trustLevel">
           <ControlLabel>Trust Level</ControlLabel>
           <FormControl componentClass="select" placeholder="Trust Level" onChange={this.handleChange}>
+            <option value="0">-</option>
             <option value={TrustLevelEnum.Unknown}>Unknown</option>
             <option value={TrustLevelEnum.Verified}>Verified</option>
             <option value={TrustLevelEnum.Fraud}>Fraud</option>
