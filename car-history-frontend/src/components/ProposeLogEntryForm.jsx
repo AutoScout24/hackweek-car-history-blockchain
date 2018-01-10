@@ -39,11 +39,14 @@ export default class ProposeLogEntryForm extends React.Component {
   }
 
   getValidationState(id) {
+    let len;
     switch (id) {
       case 'contractAddress':
-        return this.state.contractAddress.length > 1 ? 'success' : 'error';
+        len = this.state.contractAddress.length;
+        return len > 1 ? 'success' : len === 0 ? null : 'error';
       case 'comment':
-        return this.state.comment.length > 1 ? 'success' : 'error';
+        len = this.state.comment.length;
+        return len > 3 ? 'success' : len === 0 ? null : 'error';
       case 'mileage':
         const mileage = this.state.mileage;
         return !isNaN(mileage) && mileage >= 0 ? 'success' : 'error';

@@ -22,7 +22,6 @@ export default class CreateForm extends React.Component {
     this.state = CreateForm.initialState();
   }
 
-
   static initialState() {
     return {
       vin: '',
@@ -41,7 +40,8 @@ export default class CreateForm extends React.Component {
   getValidationState(id) {
     switch (id) {
       case 'vin':
-        return this.state.vin.length > 5 ? 'success' : 'error';
+        const len = this.state.vin.length;
+        return len > 5 ? 'success' : len === 0 ? null : 'error';
       case 'mileage':
         return !isNaN(this.state.mileage) && this.state.mileage >= 0
             ? 'success' : 'error';
