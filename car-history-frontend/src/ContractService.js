@@ -127,13 +127,17 @@ export default class ContractService {
     }
 
   approveProposedLogEntry(address) {
-    return this.getContractAtAddress(address).methods
-      .approveLogEntry()
-      .send({from: this.account, gas: defaultGasVolume, gasPrice: defaultGasPrice})
-      .then((event) => {
-        console.log(event);
-        return
-      });
+    const contract = this.getContractAtAddress(address);
+    return contract.methods.owner().call()
+      .then((owner) => {
+        if(owner !== this.account) {
+          throw new Error("Only permitted by car owner!")
+        }
+      })
+      .then(() => {
+        return contract.methods.approveLogEntry()
+          .send({from: this.account, gas: defaultGasVolume, gasPrice: defaultGasPrice})
+      })
   }
 }
 
