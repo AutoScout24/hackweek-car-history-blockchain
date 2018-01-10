@@ -6,7 +6,7 @@ import {
 } from 'react-bootstrap';
 
 import './styles/ProposedLogEntry.css';
-import TrustLabel from "./trusted-identities/TrustLabel";
+import TrustLabel from "../trusted-identities/TrustLabel";
 
 export default class ProposedLogEntry extends React.Component {
   render() {

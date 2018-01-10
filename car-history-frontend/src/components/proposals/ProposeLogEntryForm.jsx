@@ -11,7 +11,7 @@ import {
 import NProgress from 'nprogress';
 
 import 'nprogress/nprogress.css';
-import VinPicker from "./VinPicker";
+import VinPicker from "../VinPicker";
 
 export default class ProposeLogEntryForm extends React.Component {
 

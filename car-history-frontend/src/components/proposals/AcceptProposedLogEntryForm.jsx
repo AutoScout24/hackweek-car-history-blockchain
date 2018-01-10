@@ -2,16 +2,13 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Alert,
-  FormGroup,
-  ControlLabel,
-  FormControl,
   Button
 } from 'react-bootstrap';
 import ProposedLogEntry from "./ProposedLogEntry";
 import NProgress from 'nprogress';
 
 import 'nprogress/nprogress.css';
-import VinPicker from "./VinPicker";
+import VinPicker from "../VinPicker";
 
 const StateEnum = {
   None: 0,

@@ -9,8 +9,8 @@ import 'bootstrap/dist/css/bootstrap-theme.css';
 import ReadCarHistoryDataForm from "./components/ReadCarHistoryDataForm";
 import ContractService from "./ContractService"
 import VinRegistryService from "./VinRegistryService"
-import ProposeLogEntryForm from "./components/ProposeLogEntryForm";
-import AcceptProposedLogEntryForm from "./components/AcceptProposedLogEntryForm";
+import ProposeLogEntryForm from "./components/proposals/ProposeLogEntryForm";
+import AcceptProposedLogEntryForm from "./components/proposals/AcceptProposedLogEntryForm";
 import CreateTrustedIdentitiesStoreForm from "./components/trusted-identities/CreateTrustedIdentitiesStoreForm";
 import TrustedIdentitiesService from "./TrustedIdentitiesService";
 import TrustIdentityFrom from "./components/trusted-identities/TrustIdentityFrom";
