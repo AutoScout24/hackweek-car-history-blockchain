@@ -8,18 +8,16 @@ const defaultGasVolume = '4000000';
 export default class ContractService {
 
     constructor() {
-        // change to https or ws provider after local node is created
-        this.web3 = new Web3(Web3.givenProvider);
+        // this.web3 = new Web3(Web3.givenProvider);
+        this.web3 = new Web3('http://ec2-34-242-87-218.eu-west-1.compute.amazonaws.com:8545/');
     }
 
-    loadAccounts() {
-      return this.web3.eth.getAccounts()
-        .then((accounts) => {
-          this.account = (accounts[0]);
-          return this.account;
-        }).catch((e) => {
-          console.log("Error in getting account", e);
-        });
+    switchAccount(key) {
+        if (key) {
+            this.account = this.web3.eth.accounts.privateKeyToAccount(key);
+        } else {
+            this.account = undefined;
+        }
     }
 
     deployContract(data) {
@@ -33,10 +31,17 @@ export default class ContractService {
                 gasPrice: defaultGasPrice,
                 data: contractBytecode.object
             });
-        return contract
-            .deploy({arguments: [this.account, data.mileage, data.vin]})
-            .send({from: this.account})
-            .then((contract) => {
+
+        const transaction = contract.deploy({
+            arguments: [this.account.address, data.mileage, data.vin]
+        });
+
+        transaction.gas=defaultGasVolume;
+
+        return this.account.signTransaction(transaction)
+            .then((signed) => {
+                return this.web3.eth.sendSignedTransaction(signed.rawTransaction)
+            }).then((contract) => {
                 if (typeof contract.options.address !== 'undefined') {
                     console.log('Contract mined! address: ' + contract.options.address);
                 }

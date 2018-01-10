@@ -1,6 +1,8 @@
 import React, {Component} from 'react';
 import {Row, Col, Nav, NavItem, Tab, Navbar} from 'react-bootstrap';
 import CreateForm from './components/CreateForm';
+import Select from 'react-select';
+import 'react-select/dist/react-select.css';
 
 import './App.css';
 
@@ -28,13 +30,21 @@ class App extends Component {
     this.trustedIdentitiesService = new TrustedIdentitiesService(this.contractService, defaultTrustStoreAddressOnRopstenTestNet);
     TrustedIdentitiesService.defaultService = this.trustedIdentitiesService;
 
-    this.contractService.loadAccounts()
-      .then((currentAccount) => this.setState({currentAccount}));
-
     this.state = {currentAccount: ''};
   }
 
+  handleChange = (selectedOption) => {
+    let accountKey = '';
+    if(selectedOption){
+        accountKey = selectedOption.value;
+    }
+    this.contractService.switchAccount(accountKey);
+    this.setState({'currentAccount' : selectedOption });
+  };
+
   render() {
+    const selectedOption = this.state.currentAccount;
+    const value = selectedOption && selectedOption.value;
     return (
         <div className="container">
           <Navbar fixedTop>
@@ -52,6 +62,17 @@ class App extends Component {
 
             </header>
           </div>
+            <div className="col-lg-3 col-lg-offset-9">
+                <Select
+                    name="form-field-name"
+                    value={value}
+                    onChange={this.handleChange}
+                    options={[
+                        { value: '0x1187c0ea82926a933ecf57bdea043a8cbc48b0044636532134d6910bed8aba50', label: 'Owner' },
+                        { value: '0x1187c0ea82926a933ecf57bdea043a8cbc48b0044636532134d6910bed8aba50', label: 'Handler' },
+                    ]}
+                />
+            </div>
           <div className="row">
             <div className="col-lg-12">
               <Tab.Container id="left-tabs-example" defaultActiveKey="createNew">
