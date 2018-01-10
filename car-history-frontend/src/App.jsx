@@ -13,6 +13,7 @@ import AcceptProposedLogEntryForm from "./components/proposals/AcceptProposedLog
 import CreateTrustedIdentitiesStoreForm from "./components/trusted-identities/CreateTrustedIdentitiesStoreForm";
 import TrustedIdentitiesService from "./TrustedIdentitiesService";
 import TrustIdentityFrom from "./components/trusted-identities/TrustIdentityFrom";
+import AccountForm from "./components/AccountForm";
 import TrustLabel from "./components/trusted-identities/TrustLabel";
 import AddVinForm from "./components/vin-management/AddVinForm";
 
@@ -30,12 +31,18 @@ class App extends Component {
     this.trustedIdentitiesService = new TrustedIdentitiesService(this.contractService, defaultTrustStoreAddressOnRopstenTestNet);
     TrustedIdentitiesService.defaultService = this.trustedIdentitiesService;
 
-    if(UseGivenProvider) {
-      this.contractService.loadAccounts()
-        .then((currentAccount) => this.setState({currentAccount}));
-    }
+    // if(UseGivenProvider) {
+    //   this.contractService.loadAccounts()
+    //     .then((currentAccount) => this.setState({currentAccount}));
+    // }
 
+    this.updateAccountHandler = this.updateAccountHandler.bind(this);
+      
     this.state = {currentAccount: ''};
+  }
+  
+  updateAccountHandler(account){
+      this.setState({currentAccount: account})
   }
 
   handleChange = (selectedOption) => {
@@ -59,7 +66,7 @@ class App extends Component {
               </Navbar.Brand>
             </Navbar.Header>
             <Nav>
-              <NavItem>Current Account: <TrustLabel idAddress={this.state.currentAccount}/></NavItem>
+              <NavItem>Current Account: <TrustLabel idAddress={this.state.currentAccount.address}/></NavItem>
             </Nav>
           </Navbar>
           <div className="row">
@@ -94,6 +101,8 @@ class App extends Component {
                       <hr/>
                       <NavItem eventKey="fifth">Change Trust State</NavItem>
                       <NavItem eventKey="sixth">Trust Store Setting</NavItem>
+                      <hr/>
+                      <NavItem eventKey="seventh">Account</NavItem>
                     </Nav>
                   </Col>
                   <Col sm={9}>
@@ -118,6 +127,9 @@ class App extends Component {
                       </Tab.Pane>
                       <Tab.Pane eventKey="sixth">
                         <CreateTrustedIdentitiesStoreForm trustedIdentitiesService={this.trustedIdentitiesService}/>
+                      </Tab.Pane>
+                      <Tab.Pane eventKey="seventh">
+                        <AccountForm updateAccountHandler={this.updateAccountHandler} contractService={this.contractService}/>
                       </Tab.Pane>
                     </Tab.Content>
                   </Col>

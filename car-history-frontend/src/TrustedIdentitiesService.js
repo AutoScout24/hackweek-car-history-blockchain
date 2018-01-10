@@ -35,7 +35,7 @@ export default class TrustedIdentitiesService {
       });
     return this.contract
       .deploy({arguments: [this.contractService.account]})
-      .send({from: this.contractService.account})
+      .send({from: this.contractService.account.address})
       .then((contract) => {
         this.contract = contract;
         if (typeof contract.options.address !== 'undefined') {
