@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Panel } from 'react-bootstrap';
+import {Panel, Table} from 'react-bootstrap';
 
 import './styles/CarHistoryData.css';
 
@@ -15,12 +15,25 @@ export default class CarHistoryData extends React.Component {
               <p>Owner: {this.props.owner}</p>
               <p>Mileage: {this.props.latestMileage} km</p>
               <h5>Log Entries:</h5>
-              <ul>
+
+              <Table striped bordered condensed hover>
+                <thead>
+                <tr>
+                  <th>Comment</th>
+                  <th>Author</th>
+                  <th>Mileage</th>
+                </tr>
+                </thead>
+                <tbody>
                 {this.props.logEntries.map((entry) => {
-                  return <li>{entry.comment}<br/>By {entry.author} at {entry.mileage} km
-                  </li>
+                  return <tr>
+                    <td>{entry.comment}</td>
+                    <td>{entry.author}</td>
+                    <td>{entry.mileage}</td>
+                  </tr>;
                 })}
-              </ul>
+                </tbody>
+              </Table>
             </Panel.Body>
           </Panel>
         </div>
