@@ -17,7 +17,7 @@ export default class CarHistoryData extends React.Component {
             </Panel.Heading>
             <Panel.Body>
               <p><b>VIN:</b> {this.props.VIN}</p>
-              <p><b>Owner:</b> {this.props.owner}</p>
+              <p><b>Owner:</b> <TrustLabel idAddress={this.props.owner}/></p>
               <p><b>Mileage:</b> {this.props.latestMileage} km</p>
               <h5>Log Entries:</h5>
 
