@@ -30,6 +30,7 @@ export default class VinPicker extends React.Component {
           placeholder="..."
           onChange={this.props.onChange}
         >
+          <option value=''>-</option>
           {options}
         </FormControl>
         <FormControl.Feedback/>
