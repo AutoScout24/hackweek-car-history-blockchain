@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {Panel, Table} from 'react-bootstrap';
 
 import './styles/CarHistoryData.css';
+import TrustLabel from "./trusted-identities/TrustLabel";
 
 export default class CarHistoryData extends React.Component {
   render() {
@@ -32,8 +33,8 @@ export default class CarHistoryData extends React.Component {
                 {this.props.logEntries.map((entry) => {
                   return <tr>
                     <td>{entry.comment}</td>
-                    <td>{entry.author}</td>
-                    <td>{entry.mileage}</td>
+                    <td><TrustLabel idAddress={entry.author}/></td>
+                    <td>{entry.mileage} km</td>
                   </tr>;
                 })}
                 </tbody>

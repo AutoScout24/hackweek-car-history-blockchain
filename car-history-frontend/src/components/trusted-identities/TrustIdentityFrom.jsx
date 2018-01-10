@@ -6,18 +6,12 @@ import {
   FormGroup,
   ControlLabel,
   FormControl,
-  Button, SplitButton, MenuItem
+  Button
 } from 'react-bootstrap';
 import NProgress from 'nprogress';
 
 import 'nprogress/nprogress.css';
-
-const TrustLevelEnum = {
-  Fraud: 0,
-  Verified: 1,
-  Admin: 2,
-  Unknown: 3
-};
+import {TrustLevelEnum} from "../../TrustedIdentitiesService";
 
 export default class TrustIdentityFrom extends React.Component {
 

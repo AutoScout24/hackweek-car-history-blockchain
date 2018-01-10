@@ -20,6 +20,7 @@ class App extends Component {
     super(props);
     this.contractService = new ContractService();
     this.trustedIdentitiesService = new TrustedIdentitiesService(this.contractService, "0x8b8Da3fe4821833e31120D92eb725251865abaC6");
+    TrustedIdentitiesService.defaultService = this.trustedIdentitiesService;
   }
 
   render() {

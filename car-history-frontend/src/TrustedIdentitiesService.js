@@ -4,7 +4,15 @@ import contractBytecode from './smart-contracts/trusted-identities.bytecode';
 const defaultGasPrice = '300000000000';
 const defaultGasVolume = '4000000';
 
+export const TrustLevelEnum = {
+  Fraud: 0,
+  Verified: 1,
+  Admin: 2,
+  Unknown: 3
+};
+
 export default class TrustedIdentitiesService {
+  static defaultService;
 
   constructor(contractService, trustStoreAddress) {
     this.contractService = contractService;
@@ -29,6 +37,7 @@ export default class TrustedIdentitiesService {
       .deploy({arguments: [this.contractService.account]})
       .send({from: this.contractService.account})
       .then((contract) => {
+        this.contract = contract;
         if (typeof contract.options.address !== 'undefined') {
           console.log('Trust store mined! address: ' + contract.options.address);
         }
@@ -54,5 +63,3 @@ export default class TrustedIdentitiesService {
       });
   }
 }
-
-
