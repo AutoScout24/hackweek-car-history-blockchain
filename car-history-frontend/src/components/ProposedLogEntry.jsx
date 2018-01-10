@@ -14,11 +14,15 @@ export default class ProposedLogEntry extends React.Component {
       return (
           <div>
             <Panel id="panel-data">
-              <Panel.Heading>Proposal Data</Panel.Heading>
+              <Panel.Heading>
+                <Panel.Title componentClass="h3">
+                  Proposal Data
+                </Panel.Title>
+              </Panel.Heading>
               <Panel.Body>
-                <p>Comment: {this.props.comment}</p>
-                <p>Author: {this.props.author}</p>
-                <p>Mileage: {this.props.mileage} km</p>
+                <p><b>Comment:</b> {this.props.comment}</p>
+                <p><b>Author:</b> {this.props.author}</p>
+                <p><b>Mileage:</b> {this.props.mileage} km</p>
               </Panel.Body>
             </Panel>
             <Button

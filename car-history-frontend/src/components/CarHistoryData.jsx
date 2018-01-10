@@ -9,11 +9,15 @@ export default class CarHistoryData extends React.Component {
     return (
         <div>
           <Panel id="panel-data">
-            <Panel.Heading>Contract Data:</Panel.Heading>
+            <Panel.Heading>
+              <Panel.Title componentClass="h3">
+                Contract Data
+              </Panel.Title>
+            </Panel.Heading>
             <Panel.Body>
-              <p>VIN: {this.props.VIN}</p>
-              <p>Owner: {this.props.owner}</p>
-              <p>Mileage: {this.props.latestMileage} km</p>
+              <p><b>VIN:</b> {this.props.VIN}</p>
+              <p><b>Owner:</b> {this.props.owner}</p>
+              <p><b>Mileage:</b> {this.props.latestMileage} km</p>
               <h5>Log Entries:</h5>
 
               <Table striped bordered condensed hover>
