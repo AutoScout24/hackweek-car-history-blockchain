@@ -10,13 +10,15 @@ export default class ContractService {
     constructor() {
         // change to https or ws provider after local node is created
         this.web3 = new Web3(Web3.givenProvider);
+    }
 
-        // implement switch account logic
-        this.web3.eth.getAccounts()
+    loadAccounts() {
+      return this.web3.eth.getAccounts()
         .then((accounts) => {
           this.account = (accounts[0]);
+          return this.account;
         }).catch((e) => {
-            console.log("Error in getting account");
+          console.log("Error in getting account", e);
         });
     }
 

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Row, Col, Nav, NavItem, Tab} from 'react-bootstrap';
+import {Row, Col, Nav, NavItem, Tab, Navbar} from 'react-bootstrap';
 import CreateForm from './components/CreateForm';
 
 import './App.css';
@@ -13,6 +13,7 @@ import AcceptProposedLogEntryForm from "./components/AcceptProposedLogEntryForm"
 import CreateTrustedIdentitiesStoreForm from "./components/trusted-identities/CreateTrustedIdentitiesStoreForm";
 import TrustedIdentitiesService from "./TrustedIdentitiesService";
 import TrustIdentityFrom from "./components/trusted-identities/TrustIdentityFrom";
+import TrustLabel from "./components/trusted-identities/TrustLabel";
 
 const defaultTrustStoreAddressOnRopstenTestNet = "0x0e43ae88a0bacdd4be3b9abfbfe4c0b7e8f8c080";
 
@@ -23,14 +24,29 @@ class App extends Component {
     this.contractService = new ContractService();
     this.trustedIdentitiesService = new TrustedIdentitiesService(this.contractService, defaultTrustStoreAddressOnRopstenTestNet);
     TrustedIdentitiesService.defaultService = this.trustedIdentitiesService;
+
+    this.contractService.loadAccounts()
+      .then((currentAccount) => this.setState({currentAccount}));
+
+    this.state = {currentAccount: ''};
   }
 
   render() {
     return (
         <div className="container">
+          <Navbar fixedTop>
+            <Navbar.Header>
+              <Navbar.Brand>
+                Car History Blockchain Demo
+              </Navbar.Brand>
+            </Navbar.Header>
+            <Nav>
+              <NavItem>Current Account: <TrustLabel idAddress={this.state.currentAccount}/></NavItem>
+            </Nav>
+          </Navbar>
           <div className="row">
             <header className="col-lg-12 App-header">
-              Car History Blockchain demo
+
             </header>
           </div>
           <div className="row">
