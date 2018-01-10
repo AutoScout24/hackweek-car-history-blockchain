@@ -29,8 +29,8 @@ export default class TrustedIdentitiesService {
 
     this.contract = new this.contractService.web3.eth.Contract(contractABI,
       null, {
-        gas: defaultGasVolume,
-        gasPrice: defaultGasPrice,
+        gas: parseInt(defaultGasVolume),
+        gasPrice: parseInt(defaultGasPrice),
         data: contractBytecode.object
       });
     return this.contract
@@ -52,6 +52,10 @@ export default class TrustedIdentitiesService {
   getVerificationStatus(addressToVerify){
     return this.contract.methods
       .trustedIdentities(addressToVerify).call()
+  }
+
+  getBalance(address){
+    return this.contractService.web3.eth.getBalance(address);
   }
 
   setVerificationStatus(addressToVerify, status, name) {
