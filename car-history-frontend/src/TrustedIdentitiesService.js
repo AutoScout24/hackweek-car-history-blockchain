@@ -55,9 +55,17 @@ export default class TrustedIdentitiesService {
   }
 
   setVerificationStatus(addressToVerify, status, name) {
-    return this.contract.methods
-      .setTrustLevel(addressToVerify, parseInt(status), name)
-      .send({from: this.contractService.account, gas: defaultGasVolume, gasPrice: defaultGasPrice})
+    return this.getVerificationStatus(this.contractService.account)
+      .then((data) => {
+        if(parseInt(data.trustLevel) !== TrustLevelEnum.Admin) {
+          throw new Error("Only permitted by admins!")
+        }
+      })
+      .then(() => {
+        return this.contract.methods
+          .setTrustLevel(addressToVerify, parseInt(status), name)
+          .send({from: this.contractService.account, gas: defaultGasVolume, gasPrice: defaultGasPrice})
+      })
       .then((event) => {
         return event.transactionHash;
       });
