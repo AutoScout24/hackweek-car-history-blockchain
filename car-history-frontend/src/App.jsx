@@ -80,7 +80,7 @@ class App extends Component {
             </header>
           </div>
           { !UseGivenProvider &&
-          <div class="row">
+          <div className="row">
             <div className="col-lg-3 col-lg-offset-9">
                   <Select
                       name="form-field-name"
