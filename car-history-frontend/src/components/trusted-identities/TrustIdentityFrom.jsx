@@ -103,6 +103,23 @@ export default class TrustIdentityFrom extends React.Component {
     };
 
     return <div>
+
+      <Panel bsStyle="info">
+        <Panel.Heading>
+          <Panel.Title componentClass="h3">What do I see here?</Panel.Title>
+        </Panel.Heading>
+        <Panel.Body>
+          <p>
+            An important part of the system is who is trusted. For this a (or multiple) "trust stores" can exist.<br />
+            They store which address has which identity and whether it is trusted.<br />
+            This is stored on the blockchain right now, but could also be stored by trusted parties (e.g. Scout24) to ensure user privacy.
+          </p>
+          <p>
+            In this UI you can change the verification aka trust state for a user (aka address).
+          </p>
+        </Panel.Body>
+      </Panel>
+
       {error()}
       {success()}
       <form>

@@ -99,6 +99,21 @@ export default class CreateForm extends React.Component {
 
     return (
         <div>
+          <Panel bsStyle="info">
+            <Panel.Heading>
+              <Panel.Title componentClass="h3">What do I see here?</Panel.Title>
+            </Panel.Heading>
+            <Panel.Body>
+              <p>
+                If your car is not yet represented in this system you can create a new representation here.<br />
+                A so called "contract" is created for it in which all relevant data is stored and changes can be tracked reliably.
+              </p>
+              <p>
+                Ideally this is done by the car manufacturer for each car produced.
+              </p>
+            </Panel.Body>
+          </Panel>
+
           {error()}
           {success()}
           <form>

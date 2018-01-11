@@ -106,6 +106,27 @@ export default class ProposeLogEntryForm extends React.Component {
     };
 
     return <div>
+
+      <Panel bsStyle="info">
+        <Panel.Heading>
+          <Panel.Title componentClass="h3">What do I see here?</Panel.Title>
+        </Panel.Heading>
+        <Panel.Body>
+          <p>
+            As a workshop (or also owner) you can submit a proposal for a new entry into the cars history.<br />
+            E.g. that a maintenance or accident happened.
+          </p>
+          <p>
+            This is proposal then needs to be accepted by the owner of the car.<br />
+            In a future system other trusted authorities (e.g. TÜV, government) might also be able to accept proposal in addition to the owner.
+          </p>
+          <p>
+            A future system could also allow users to submit more metadata (e.g. PDFs) to each entry which is stored by a secondary storage provider (e.g. Scout24, TÜV, ADAC, ...).
+            Too large data cannot be stored on the blockchain but data can be verified by storing cryptographic hash values of the additional data.
+          </p>
+        </Panel.Body>
+      </Panel>
+
       {error()}
       {success()}
       <form>

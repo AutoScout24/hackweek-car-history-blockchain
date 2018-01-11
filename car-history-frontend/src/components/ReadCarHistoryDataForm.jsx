@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Alert,
-  Button
+  Button, Panel
 } from 'react-bootstrap';
 import CarHistoryData from "./CarHistoryData";
 import NProgress from 'nprogress';
@@ -57,6 +57,18 @@ export default class ReadCarHistoryDataForm extends React.Component {
 
     return (
         <div>
+
+          <Panel bsStyle="info">
+            <Panel.Heading>
+              <Panel.Title componentClass="h3">What do I see here?</Panel.Title>
+            </Panel.Heading>
+            <Panel.Body>
+              <p>
+                Here you can inspect the history of a car. You will also see next to each entry by whom this entry was created and whether its author is verified.
+              </p>
+            </Panel.Body>
+          </Panel>
+
           {error()}
           <form>
             <VinPicker onChange={this.onAddressChangeHandler}/>

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Alert,
-  Button
+  Button, Panel
 } from 'react-bootstrap';
 import ProposedLogEntry from "./ProposedLogEntry";
 import NProgress from 'nprogress';
@@ -99,6 +99,28 @@ export default class AcceptProposedLogEntryForm extends React.Component {
 
     return (
         <div>
+
+          <Panel bsStyle="info">
+            <Panel.Heading>
+              <Panel.Title componentClass="h3">What do I see here?</Panel.Title>
+            </Panel.Heading>
+            <Panel.Body>
+              <p>
+                You can see the pending proposal here for a car's history entry here.
+              </p>
+              <p>
+                If you are the owner you can accept this proposal. This will then permanently store it in the history of that car.
+              </p>
+              <p>
+                In a future system also a rejection option can be implemented.
+              </p>
+              <p>
+                As an owner you get register with notification providers (e.g. Scout24) to get notified about a pending proposal that requires your attention.<br />
+                Since it's an open system multiple providers for such a service can co-exist.
+              </p>
+            </Panel.Body>
+          </Panel>
+
           {error()}
           <form>
             <VinPicker onChange={this.onAddressChangeHandler}/>

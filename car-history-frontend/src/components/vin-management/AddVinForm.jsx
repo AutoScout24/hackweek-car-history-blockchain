@@ -76,6 +76,20 @@ export default class AddVinForm extends React.Component {
 
     return (
       <div>
+        <Panel bsStyle="info">
+          <Panel.Heading>
+            <Panel.Title componentClass="h3">What do I see here?</Panel.Title>
+          </Panel.Heading>
+          <Panel.Body>
+            <p>
+              If this interface does not show your car listed here but you know that a contract was already created for it you can add it here.
+            </p>
+            <p>
+              This is just kind of an internal utility right now for this prototype.
+            </p>
+          </Panel.Body>
+        </Panel>
+
         {success()}
         <form>
           <FormGroup
