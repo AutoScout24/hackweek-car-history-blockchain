@@ -3,6 +3,8 @@ import PropTypes from 'prop-types';
 
 import TrustedIdentitiesService, {TrustLevelEnum} from "../../TrustedIdentitiesService";
 
+import './styles/trust-label.css';
+
 export default class TrustLabel extends React.Component {
 
   constructor(props) {
@@ -43,7 +45,7 @@ export default class TrustLabel extends React.Component {
       } else if (trustLevel === TrustLevelEnum.PrivilegedAuthority) {
         return <span style={{color:"green"}}><span role="img" aria-label="Check">✅</span>Privileged Authority</span>
       } else {
-        return selectedAccount === 'Not selected' ? '' : <span style={{color:"orange"}}><span role="img" aria-label="Warn">⚠</span>Unknown Identity</span>
+        return selectedAccount === 'Not selected' ? '' : <span style={{color:"orange"}}><span role="img" aria-label="Warn">⚠️</span>Unknown Identity</span>
       }
     })();
 
