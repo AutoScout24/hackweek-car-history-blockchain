@@ -162,6 +162,23 @@ export default class ContractService {
           .send({from: this.getCurrentAccountAddress(), gas: defaultGasVolume, gasPrice: defaultGasPrice})
       })
   }
+
+  changeOwner(contractAddress, newOwnerAddress) {
+    const contract = this.getContractAtAddress(contractAddress);
+    return contract.methods.owner().call()
+      .then((owner) => {
+        if(owner !== this.getCurrentAccountAddress()) {
+          throw new Error("Only permitted by car owner!")
+        }
+      })
+      .then(() => {
+        return contract.methods.transferOwnership(newOwnerAddress)
+          .send({from: this.getCurrentAccountAddress(), gas: defaultGasVolume, gasPrice: defaultGasPrice})
+      })
+      .then((event) => {
+        return event.transactionHash;
+      });
+  }
 }
 
 

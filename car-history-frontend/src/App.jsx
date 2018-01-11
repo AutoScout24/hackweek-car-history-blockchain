@@ -19,6 +19,7 @@ import AddVinForm from "./components/vin-management/AddVinForm";
 
 import './App.css';
 import {UseGivenProvider} from "./FeatureSwitches";
+import ChangeOwnerForm from "./components/vin-management/ChangeOwnerForm";
 
 const defaultTrustStoreAddressOnRopstenTestNet = "0x546dFa76e45a2c2F33Cd3E21Cbf08362848b6C8F";
 
@@ -105,6 +106,7 @@ class App extends Component {
                       <NavItem eventKey="addExisting">Add existing contract for a car</NavItem>
                       <NavItem eventKey="second">Propose a log entry</NavItem>
                       <NavItem eventKey="third">Accept a proposed log entry</NavItem>
+                      <NavItem eventKey="changeOwner">Transfer car ownership</NavItem>
                       <NavItem eventKey="fourth">Read Car History</NavItem>
                       <hr/>
                       <NavItem eventKey="fifth">Change Trust State</NavItem>
@@ -126,6 +128,9 @@ class App extends Component {
                       </Tab.Pane>
                       <Tab.Pane eventKey="third">
                         <AcceptProposedLogEntryForm contractService={this.contractService}/>
+                      </Tab.Pane>
+                      <Tab.Pane eventKey="changeOwner">
+                        <ChangeOwnerForm contractService={this.contractService}/>
                       </Tab.Pane>
                       <Tab.Pane eventKey="fourth">
                         <ReadCarHistoryDataForm contractService={this.contractService}/>
