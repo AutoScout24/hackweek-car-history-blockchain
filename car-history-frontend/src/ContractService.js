@@ -163,7 +163,7 @@ export default class ContractService {
       })
   }
 
-  changeOwner(contractAddress, newOwnerAddress) {
+  changeOwner(contractAddress, newOwnerAddress, mileage) {
     const contract = this.getContractAtAddress(contractAddress);
     return contract.methods.owner().call()
       .then((owner) => {
@@ -172,7 +172,7 @@ export default class ContractService {
         }
       })
       .then(() => {
-        return contract.methods.transferOwnership(newOwnerAddress)
+        return contract.methods.transferOwnership(newOwnerAddress, mileage)
           .send({from: this.getCurrentAccountAddress(), gas: defaultGasVolume, gasPrice: defaultGasPrice})
       })
       .then((event) => {

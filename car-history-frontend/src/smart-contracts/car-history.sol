@@ -23,8 +23,8 @@ contract CarHistory {
         latestMileage = _mileage;
         VIN = _VIN;
 
-        approvedLogEntries.push(ProposedLogEntry(_owner, _mileage, "Created", true));
-        LogEntry(_owner, _mileage, "Created");
+        approvedLogEntries.push(ProposedLogEntry(_owner, _mileage, "Contract Created", true));
+        LogEntry(_owner, _mileage, "Contract Created");
     }
 
     function proposeLogEntry(uint mileage, string comment) public {
@@ -51,8 +51,15 @@ contract CarHistory {
         return approvedLogEntries.length;
     }
 
-    function transferOwnership(address newOwner) public {
+    function transferOwnership(address newOwner, uint mileage) public {
         require(msg.sender == owner);               // Only allow the owner to transfer ownership
+
+        if(latestMileage < mileage) {
+            latestMileage = mileage;
+        }
+
+        approvedLogEntries.push(ProposedLogEntry(owner, mileage, "Transfer Ownership", true));
+        LogEntry(owner, mileage, "Transfer Ownership");
 
         owner = newOwner;
     }

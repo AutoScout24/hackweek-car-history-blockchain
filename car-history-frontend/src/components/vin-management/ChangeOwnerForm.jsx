@@ -28,13 +28,15 @@ export default class ChangeOwnerForm extends React.Component {
       contractAddress: '',
       newOwnerAddress: '',
       transactionHash: '',
+      mileage: 0,
       error: ''
     };
   }
 
   isValid() {
     return this.getValidationState("contractAddress") === "success"
-      && this.getValidationState("newOwnerAddress") === "success";
+      && this.getValidationState("newOwnerAddress") === "success"
+      && this.getValidationState("mileage") === "success";
   }
 
   getValidationState(id) {
@@ -46,6 +48,9 @@ export default class ChangeOwnerForm extends React.Component {
       case 'newOwnerAddress':
         len = this.state.newOwnerAddress.length;
         return len > 3 ? 'success' : len === 0 ? null : 'error';
+      case 'mileage':
+        const mileage = this.state.mileage;
+        return !isNaN(mileage) && mileage >= 0 ? 'success' : 'error';
       default:
         return null;
     }
@@ -56,7 +61,7 @@ export default class ChangeOwnerForm extends React.Component {
       this.setState({isLoading: true, error: '', transactionHash: ''});
       NProgress.start();
       await this.props.contractService
-        .changeOwner(this.state.contractAddress, this.state.newOwnerAddress)
+        .changeOwner(this.state.contractAddress, this.state.newOwnerAddress, this.state.mileage)
         .then((transactionHash) => {
           this.setState({transactionHash: transactionHash})
         })
@@ -122,6 +127,16 @@ export default class ChangeOwnerForm extends React.Component {
             type="text"
             value={this.state.newOwnerAddress}
             placeholder="Blockchain address of the new owner"
+            onChange={this.handleChange}/>
+        </FormGroup>
+        <FormGroup
+          controlId="mileage"
+          validationState={this.getValidationState('mileage')}>
+          <ControlLabel>Car Mileage at Ownership Change</ControlLabel>
+          <FormControl
+            type="number"
+            value={this.state.mileage}
+            placeholder="0"
             onChange={this.handleChange}/>
         </FormGroup>
         <Button
