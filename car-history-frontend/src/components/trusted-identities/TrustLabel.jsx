@@ -32,7 +32,7 @@ export default class TrustLabel extends React.Component {
         return "...";
       }
 
-      const trustLevel = parseInt(this.state.trustLevel, 2);
+      const trustLevel = parseInt(this.state.trustLevel, 10);
       const selectedAccount = this.state.name;
       if (trustLevel === TrustLevelEnum.Verified) {
         return <span style={{color:"green"}}>✅&nbsp;Verified</span>
