@@ -15,7 +15,6 @@ export default class ReadCarHistoryDataForm extends React.Component {
   constructor(props) {
     super(props);
 
-    this.onButtonClick = this.onButtonClick.bind(this);
     this.onAddressChangeHandler = this.onAddressChangeHandler.bind(this);
 
     this.state = {
@@ -26,25 +25,22 @@ export default class ReadCarHistoryDataForm extends React.Component {
     };
   }
 
-  onButtonClick() {
-    this.setState({loading: true, error: '', contractData: null});
-    NProgress.start();
-    this.props.contractService.readContractData(this.state.contractAddress)
-    .then((data) => {
-      this.setState({contractData: data});
-    })
-    .catch((e) => {
-      console.log("Error loading contract", e);
-      this.setState({error: e.message});
-    })
-    .then(() => {
-      this.setState({loading: false});
-      NProgress.done();
-    });
-  }
-
   onAddressChangeHandler(e) {
-    this.setState({contractAddress: e.target.value})
+    const contractAddress = e.target.value;
+    this.setState({contractAddress: contractAddress, loading: true, error: '', contractData: null});
+    NProgress.start();
+    this.props.contractService.readContractData(contractAddress)
+      .then((data) => {
+        this.setState({contractData: data});
+      })
+      .catch((e) => {
+        console.log("Error loading contract", e);
+        this.setState({error: e.message});
+      })
+      .then(() => {
+        this.setState({loading: false});
+        NProgress.done();
+      });
   }
 
   render() {
@@ -72,11 +68,6 @@ export default class ReadCarHistoryDataForm extends React.Component {
           {error()}
           <form>
             <VinPicker onChange={this.onAddressChangeHandler}/>
-            <Button onClick={this.onButtonClick}
-                    disabled={this.state.loading}
-                    bsStyle="primary">
-              Show information
-            </Button>
           </form>
           {this.state.loading ? (
               <h4>Loading...</h4>
