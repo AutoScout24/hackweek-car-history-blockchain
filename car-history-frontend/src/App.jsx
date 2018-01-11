@@ -37,7 +37,7 @@ class App extends Component {
     }
 
     this.updateAccountHandler = this.updateAccountHandler.bind(this);
-      
+
     this.state = {currentAccount: '', selectedAccount: null};
   }
 
@@ -82,15 +82,16 @@ class App extends Component {
           { !UseGivenProvider &&
           <div className="row">
             <div className="col-lg-3 col-lg-offset-9">
-                  <Select
-                      name="form-field-name"
-                      value={value}
-                      onChange={this.handleSwitchAccount}
-                      options={[
-                          { value: '0x1187c0ea82926a933ecf57bdea043a8cbc48b0044636532134d6910bed8aba50', label: 'Owner' },
-                          // { value: '0x1187c0ea82926a933ecf57bdea043a8cbc48b0044636532134d6910bed8aba51', label: 'Handler' },
-                      ]}
-                  />
+              <Select
+                  name="form-field-name"
+                  value={value}
+                  onChange={this.handleSwitchAccount}
+                  options={[
+                    { value: '0x3eb5d10e06424acaf70913eef55e04df3777bdad803a65d244f423d03b6a4722', label: 'Sergey' },
+                    { value: '0x1187c0ea82926a933ecf57bdea043a8cbc48b0044636532134d6910bed8aba50', label: 'Owner' },
+                    // { value: '0x1187c0ea82926a933ecf57bdea043a8cbc48b0044636532134d6910bed8aba51', label: 'Handler' },
+                  ]}
+              />
             </div>
           </div>
           }
