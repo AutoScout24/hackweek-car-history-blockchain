@@ -20,7 +20,7 @@ import AddVinForm from "./components/vin-management/AddVinForm";
 import './App.css';
 import {UseGivenProvider} from "./FeatureSwitches";
 
-const defaultTrustStoreAddressOnRopstenTestNet = "0x0e43ae88a0bacdd4be3b9abfbfe4c0b7e8f8c080";
+const defaultTrustStoreAddressOnRopstenTestNet = "0x546dFa76e45a2c2F33Cd3E21Cbf08362848b6C8F";
 
 class App extends Component {
 

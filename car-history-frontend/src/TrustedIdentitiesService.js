@@ -6,9 +6,10 @@ const defaultGasVolume = '4000000';
 
 export const TrustLevelEnum = {
   Unknown: 0,
-  Fraud: 1,
-  Verified: 2,
-  Admin: 3,
+  MaliciousActor: 1,
+  TrustworthyOwner: 2,
+  TrustworthyWorkshop: 3,
+  PrivilegedAuthority: 4
 };
 
 export default class TrustedIdentitiesService {
@@ -61,7 +62,7 @@ export default class TrustedIdentitiesService {
   setVerificationStatus(addressToVerify, status, name) {
     return this.getVerificationStatus(this.contractService.getCurrentAccountAddress())
       .then((data) => {
-        if(parseInt(data.trustLevel, 10) !== TrustLevelEnum.Admin) {
+        if(parseInt(data.trustLevel, 10) !== TrustLevelEnum.PrivilegedAuthority) {
           throw new Error("Only permitted by admins!")
         }
       })

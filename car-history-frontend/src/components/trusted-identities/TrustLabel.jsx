@@ -34,14 +34,16 @@ export default class TrustLabel extends React.Component {
 
       const trustLevel = parseInt(this.state.trustLevel, 10);
       const selectedAccount = this.state.name;
-      if (trustLevel === TrustLevelEnum.Verified) {
-        return <span style={{color:"green"}}>✅&nbsp;Verified</span>
-      } else if (trustLevel === TrustLevelEnum.Fraud) {
-        return <span style={{color:"red"}}>❌️&nbsp;Fraud</span>
-      } else if (trustLevel === TrustLevelEnum.Admin) {
-        return <span style={{color:"green"}}>✅&nbsp;Admin</span>
+      if (trustLevel === TrustLevelEnum.TrustworthyOwner) {
+        return <span style={{color:"green"}}><span role="img" aria-label="Check">✅</span>Trustworthy Owner</span>
+      } else if (trustLevel === TrustLevelEnum.TrustworthyWorkshop) {
+        return <span style={{color:"green"}}><span role="img" aria-label="Check">✅</span>Trustworthy Workshop</span>
+      } else if (trustLevel === TrustLevelEnum.MaliciousActor) {
+        return <span style={{color:"red"}}><span role="img" aria-label="Cross">❌</span>Malicious Actor</span>
+      } else if (trustLevel === TrustLevelEnum.PrivilegedAuthority) {
+        return <span style={{color:"green"}}><span role="img" aria-label="Check">✅</span>Privileged Authority</span>
       } else {
-        return selectedAccount === 'Not selected' ? '' : <span style={{color:"orange"}}>⚠️&nbsp;Unverified</span>
+        return selectedAccount === 'Not selected' ? '' : <span style={{color:"orange"}}><span role="img" aria-label="Warn">⚠</span>Unknown Identity</span>
       }
     })();
 
