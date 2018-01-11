@@ -22,6 +22,7 @@ import {UseGivenProvider} from "./FeatureSwitches";
 import ChangeOwnerForm from "./components/vin-management/ChangeOwnerForm";
 
 const defaultTrustStoreAddressOnRopstenTestNet = "0x546dFa76e45a2c2F33Cd3E21Cbf08362848b6C8F";
+const defaultTrustStoreAddressOnRinkebyTestNet = "0x358d0d485397C41F9fA1aa287DE96A41Aa0AA628";
 
 class App extends Component {
 
@@ -29,7 +30,7 @@ class App extends Component {
     super(props);
     this.vinRegistryService = new VinRegistryService();
     this.contractService = new ContractService();
-    this.trustedIdentitiesService = new TrustedIdentitiesService(this.contractService, defaultTrustStoreAddressOnRopstenTestNet);
+    this.trustedIdentitiesService = new TrustedIdentitiesService(this.contractService, defaultTrustStoreAddressOnRinkebyTestNet);
     TrustedIdentitiesService.defaultService = this.trustedIdentitiesService;
 
     if(UseGivenProvider) {
