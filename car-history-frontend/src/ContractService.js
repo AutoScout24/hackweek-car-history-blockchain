@@ -78,7 +78,7 @@ export default class ContractService {
         if (typeof contract.options.address !== 'undefined') {
           console.log('Contract mined! address: ' + contract.options.address);
         }
-        return contract;
+        return contract.options.address;
       })
     } else {
       const transaction = contract.deploy({

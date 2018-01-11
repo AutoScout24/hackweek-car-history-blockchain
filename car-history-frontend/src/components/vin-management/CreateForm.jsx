@@ -63,9 +63,9 @@ export default class CreateForm extends React.Component {
       await this.props.contractService.deployContract({
         vin: this.state.vin,
         mileage: this.state.mileage
-      }).then((contract) => {
-        this.props.vinRegistryService.setEntry(this.state.vin, contract.options.address);
-        this.setState({contractAddress: contract.options.address});
+      }).then((contractAddress) => {
+        this.props.vinRegistryService.setEntry(this.state.vin, contractAddress);
+        this.setState({contractAddress: contractAddress});
       }).catch(e => {
         console.log("Error: ", e);
         this.setState({error: e.message})
