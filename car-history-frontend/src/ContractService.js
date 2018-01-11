@@ -29,12 +29,11 @@ export default class ContractService {
       return this.account;
     }
 
-    switchAccount(key) {
-        if (key) {
-            this.account = this.web3.eth.accounts.privateKeyToAccount(key);
-        } else {
-            this.account = undefined;
-        }
+    switchAccount(privateKey) {
+        let account = privateKey ? this.web3.eth.accounts.privateKeyToAccount(privateKey) : '';
+        this.account = account;
+
+        return account;
     }
 
     deployContract(data) {

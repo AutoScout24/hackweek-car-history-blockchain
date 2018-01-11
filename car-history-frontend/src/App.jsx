@@ -38,25 +38,24 @@ class App extends Component {
 
     this.updateAccountHandler = this.updateAccountHandler.bind(this);
       
-    this.state = {currentAccount: ''};
+    this.state = {currentAccount: '', selectedAccount: null};
   }
-  
+
   updateAccountHandler(account){
       this.setState({currentAccount: account})
   }
 
-  handleChange = (selectedOption) => {
-    let accountKey = '';
-    if(selectedOption){
-        accountKey = selectedOption.value;
-    }
-    this.contractService.switchAccount(accountKey);
-    this.setState({'currentAccount' : selectedOption });
+  handleSwitchAccount = (selected) => {
+    let privateKey = selected ? selected.value : '';
+    let account = this.contractService.switchAccount(privateKey);
+
+    this.setState({'currentAccount' : account });
+    this.setState({'selectedAccount' : selected });
   };
 
   render() {
-    const selectedOption = this.state.currentAccount;
-    const value = selectedOption && selectedOption.value;
+    const selectedAccount = this.state.selectedAccount;
+    const value = selectedAccount && selectedAccount.value;
     return (
         <div className="container">
           <Navbar fixedTop>
@@ -79,10 +78,10 @@ class App extends Component {
               <Select
                   name="form-field-name"
                   value={value}
-                  onChange={this.handleChange}
+                  onChange={this.handleSwitchAccount}
                   options={[
                       { value: '0x1187c0ea82926a933ecf57bdea043a8cbc48b0044636532134d6910bed8aba50', label: 'Owner' },
-                      { value: '0x1187c0ea82926a933ecf57bdea043a8cbc48b0044636532134d6910bed8aba50', label: 'Handler' },
+                      { value: '0x1187c0ea82926a933ecf57bdea043a8cbc48b0044636532134d6910bed8aba51', label: 'Handler' },
                   ]}
               />
           </div>
