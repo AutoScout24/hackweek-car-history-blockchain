@@ -64,11 +64,11 @@ export default class CreateForm extends React.Component {
         vin: this.state.vin,
         mileage: this.state.mileage
       }).then((contract) => {
-        this.vinRegistryService.setEntry(this.state.vin, contract.options.address);
+        this.props.vinRegistryService.setEntry(this.state.vin, contract.options.address);
         this.setState({contractAddress: contract.options.address});
       }).catch(e => {
         console.log("Error: ", e);
-        this.setState({error: e})
+        this.setState({error: e.message})
       }).then(() => {
         NProgress.done();
         this.setState({isLoading: false});
