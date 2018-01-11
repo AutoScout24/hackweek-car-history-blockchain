@@ -23,7 +23,7 @@ export default class TrustedIdentitiesService {
   }
 
   deployNewTrustStore() {
-    if (!this.contractService.account) {
+    if (!this.contractService.getCurrentAccountAddress()) {
       Promise.reject("No active account");
     }
 
@@ -34,8 +34,8 @@ export default class TrustedIdentitiesService {
         data: contractBytecode.object
       });
     return this.contract
-      .deploy({arguments: [this.contractService.account]})
-      .send({from: this.contractService.account.address})
+      .deploy({arguments: [this.contractService.getCurrentAccountAddress()]})
+      .send({from: this.contractService.getCurrentAccountAddress()})
       .then((contract) => {
         this.contract = contract;
         if (typeof contract.options.address !== 'undefined') {
@@ -55,7 +55,7 @@ export default class TrustedIdentitiesService {
   }
 
   setVerificationStatus(addressToVerify, status, name) {
-    return this.getVerificationStatus(this.contractService.account)
+    return this.getVerificationStatus(this.contractService.getCurrentAccountAddress())
       .then((data) => {
         if(parseInt(data.trustLevel, 2) !== TrustLevelEnum.Admin) {
           throw new Error("Only permitted by admins!")
@@ -64,7 +64,7 @@ export default class TrustedIdentitiesService {
       .then(() => {
         return this.contract.methods
           .setTrustLevel(addressToVerify, parseInt(status, 2), name)
-          .send({from: this.contractService.account, gas: defaultGasVolume, gasPrice: defaultGasPrice})
+          .send({from: this.contractService.getCurrentAccountAddress(), gas: defaultGasVolume, gasPrice: defaultGasPrice})
       })
       .then((event) => {
         return event.transactionHash;

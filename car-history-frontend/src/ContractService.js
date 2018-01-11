@@ -40,6 +40,14 @@ export default class ContractService {
       return this.account;
     }
 
+  getCurrentAccountAddress() {
+      if (UseGivenProvider) {
+        return this.account;
+      } else {
+        return this.account.address;
+      }
+  }
+
     switchAccount(privateKey) {
         let account = privateKey ? this.web3.eth.accounts.privateKeyToAccount(privateKey) : '';
         this.account = account;
@@ -62,11 +70,11 @@ export default class ContractService {
         let transactionPromise;
         if (UseGivenProvider) {
           transactionPromise = contract
-            .deploy({arguments: [this.account, data.mileage, data.vin]})
-            .send({from: this.account})
+            .deploy({arguments: [this.getCurrentAccountAddress(), data.mileage, data.vin]})
+            .send({from: this.getCurrentAccountAddress()})
         } else {
           const transaction = contract.deploy({
-            arguments: [this.account.address, data.mileage, data.vin]
+            arguments: [this.getCurrentAccountAddress(), data.mileage, data.vin]
           });
           transaction.gas = defaultGasVolume;
 
@@ -130,7 +138,7 @@ export default class ContractService {
     proposeLogEntry(address, data) {
       return this.getContractAtAddress(address).methods
         .proposeLogEntry(data.mileage, data.comment)
-        .send({from: this.account, gas: defaultGasVolume, gasPrice: defaultGasPrice})
+        .send({from: this.getCurrentAccountAddress(), gas: defaultGasVolume, gasPrice: defaultGasPrice})
         .then((event) => {
           console.log(event);
           console.log(event.transactionHash);
@@ -142,13 +150,13 @@ export default class ContractService {
     const contract = this.getContractAtAddress(address);
     return contract.methods.owner().call()
       .then((owner) => {
-        if(owner !== this.account) {
+        if(owner !== this.getCurrentAccountAddress()) {
           throw new Error("Only permitted by car owner!")
         }
       })
       .then(() => {
         return contract.methods.approveLogEntry()
-          .send({from: this.account, gas: defaultGasVolume, gasPrice: defaultGasPrice})
+          .send({from: this.getCurrentAccountAddress(), gas: defaultGasVolume, gasPrice: defaultGasPrice})
       })
   }
 }
