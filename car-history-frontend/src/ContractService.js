@@ -15,7 +15,18 @@ export default class ContractService {
         this.web3 = new Web3('http://ec2-34-242-87-218.eu-west-1.compute.amazonaws.com:8545/');
       }
     }
-    
+
+    // For use with "givenProvider".
+    loadAccounts() {
+      return this.web3.eth.getAccounts()
+        .then((accounts) => {
+          this.account = (accounts[0]);
+          return this.account;
+        }).catch((e) => {
+          console.log("Error in getting account", e);
+        });
+    }
+
     createAccount(){
         this.account = this.web3.eth.accounts.create();
         return this.account;

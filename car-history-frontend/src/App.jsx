@@ -31,10 +31,10 @@ class App extends Component {
     this.trustedIdentitiesService = new TrustedIdentitiesService(this.contractService, defaultTrustStoreAddressOnRopstenTestNet);
     TrustedIdentitiesService.defaultService = this.trustedIdentitiesService;
 
-    // if(UseGivenProvider) {
-    //   this.contractService.loadAccounts()
-    //     .then((currentAccount) => this.setState({currentAccount}));
-    // }
+    if(UseGivenProvider) {
+       this.contractService.loadAccounts()
+         .then((currentAccount) => this.setState({currentAccount}));
+    }
 
     this.updateAccountHandler = this.updateAccountHandler.bind(this);
       
@@ -56,6 +56,12 @@ class App extends Component {
   render() {
     const selectedAccount = this.state.selectedAccount;
     const value = selectedAccount && selectedAccount.value;
+    let currentAccountAddress;
+    if(UseGivenProvider) {
+      currentAccountAddress = this.state.currentAccount;
+    } else {
+      currentAccountAddress = this.state.currentAccount ? this.state.currentAccount.address : 'not_selected';
+    }
     return (
         <div className="container">
           <Navbar fixedTop>
@@ -65,7 +71,7 @@ class App extends Component {
               </Navbar.Brand>
             </Navbar.Header>
             <Nav>
-              <NavItem>Current Account: <TrustLabel idAddress={this.state.currentAccount ? this.state.currentAccount.address : 'not_selected'}/></NavItem>
+              <NavItem>Current Account: <TrustLabel idAddress={currentAccountAddress}/></NavItem>
             </Nav>
           </Navbar>
           <div className="row">
