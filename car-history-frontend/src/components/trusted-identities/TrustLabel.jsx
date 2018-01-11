@@ -33,23 +33,28 @@ export default class TrustLabel extends React.Component {
       }
 
       const trustLevel = parseInt(this.state.trustLevel);
+      const selectedAccount = this.state.name;
       if (trustLevel === TrustLevelEnum.Verified) {
         return <span style={{color:"green"}}>✅&nbsp;Verified</span>
       } else if (trustLevel === TrustLevelEnum.Fraud) {
         return <span style={{color:"red"}}>❌️&nbsp;Fraud</span>
       } else if (trustLevel === TrustLevelEnum.Admin) {
         return <span style={{color:"green"}}>✅&nbsp;Admin</span>
-      } else  {
-        return <span style={{color:"orange"}}>⚠️&nbsp;Unverified</span>
+      } else {
+        return selectedAccount === 'Not selected' ? '' : <span style={{color:"orange"}}>⚠️&nbsp;Unverified</span>
       }
     })();
 
     return (
-      <span>{this.state.name} {trustLevel} ({this.props.idAddress})</span>
+      <span>{this.state.name} {trustLevel} ({this.props.idAddress === 'not_selected' ? '' : this.props.idAddress})</span>
     );
   }
 
   loadVerificationInfo(address) {
+    if (address === 'not_selected'){
+        this.setState({name: 'Not selected', trustLevel: TrustLevelEnum.Unknown});
+        return;
+    }
     this.setState({loading: true});
     this.trustedIdentitiesService.getVerificationStatus(address)
       .then((data) => {

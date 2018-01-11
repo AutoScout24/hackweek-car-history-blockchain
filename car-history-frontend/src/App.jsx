@@ -65,7 +65,7 @@ class App extends Component {
               </Navbar.Brand>
             </Navbar.Header>
             <Nav>
-              <NavItem>Current Account: <TrustLabel idAddress={this.state.currentAccount.address}/></NavItem>
+              <NavItem>Current Account: <TrustLabel idAddress={this.state.currentAccount ? this.state.currentAccount.address : 'not_selected'}/></NavItem>
             </Nav>
           </Navbar>
           <div className="row">
@@ -82,7 +82,7 @@ class App extends Component {
                       onChange={this.handleSwitchAccount}
                       options={[
                           { value: '0x1187c0ea82926a933ecf57bdea043a8cbc48b0044636532134d6910bed8aba50', label: 'Owner' },
-                          { value: '0x1187c0ea82926a933ecf57bdea043a8cbc48b0044636532134d6910bed8aba51', label: 'Handler' },
+                          // { value: '0x1187c0ea82926a933ecf57bdea043a8cbc48b0044636532134d6910bed8aba51', label: 'Handler' },
                       ]}
                   />
             </div>
