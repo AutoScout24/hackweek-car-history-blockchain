@@ -75,9 +75,11 @@ class App extends Component {
                 Car History Blockchain Demo
               </Navbar.Brand>
             </Navbar.Header>
-            <Nav>
-              <NavItem>Current Account: <TrustLabel idAddress={currentAccountAddress} contractService={this.contractService}/></NavItem>
-            </Nav>
+            <Navbar.Collapse>
+              <Navbar.Text>
+                Current Account: <TrustLabel idAddress={currentAccountAddress} contractService={this.contractService}/>
+              </Navbar.Text>
+            </Navbar.Collapse>
           </Navbar>
           <div className="row">
             <header className="col-lg-12 App-header">

@@ -38,3 +38,7 @@
   border-radius: 5px;
   margin: 0 8px;
 }
+
+.navbar-header {
+  min-width: 25%;
+}
