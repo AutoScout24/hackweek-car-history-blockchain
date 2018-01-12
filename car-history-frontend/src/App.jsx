@@ -120,7 +120,7 @@ class App extends Component {
                     </Nav>
                   </Col>
                   <Col sm={9}>
-                    <Tab.Content animation>
+                    <Tab.Content animation unmountOnExit={true}>
                       <Tab.Pane eventKey="createNew">
                         <CreateForm contractService={this.contractService} vinRegistryService={this.vinRegistryService} />
                       </Tab.Pane>
