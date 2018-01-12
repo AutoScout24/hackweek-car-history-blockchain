@@ -110,7 +110,7 @@ export default class ChangeOwnerForm extends React.Component {
           <Panel.Title componentClass="h3">What do I see here?</Panel.Title>
         </Panel.Heading>
         <Panel.Body>
-            Here you can transfer the ownership of the car to another account.
+            Here you can transfer the ownership of a car to another account.
         </Panel.Body>
       </Panel>
 

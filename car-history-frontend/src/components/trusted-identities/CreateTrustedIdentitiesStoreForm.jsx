@@ -73,7 +73,7 @@ export default class CreateTrustedIdentitiesStoreForm extends React.Component {
             <Panel.Title componentClass="h3">What do I see here?</Panel.Title>
           </Panel.Heading>
           <Panel.Body>
-            This page shows you the current trust store that this page is connected to. You can also create and connect to your won one.<br />
+            This page shows you the current trust store that this page is connected to. You can also create and connect to your own one.<br />
             This is more an internal administration page for this prototype.
           </Panel.Body>
         </Panel>
