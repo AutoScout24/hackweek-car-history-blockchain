@@ -109,15 +109,15 @@ class App extends Component {
                   <Col sm={3}>
                     <Nav bsStyle="pills" stacked>
                       <NavItem eventKey="createNew">Create new contract for a car</NavItem>
-                      <NavItem eventKey="addExisting">Add existing contract for a car</NavItem>
                       <NavItem eventKey="second">Propose a log entry</NavItem>
                       <NavItem eventKey="third">Accept a proposed log entry</NavItem>
                       <NavItem eventKey="changeOwner">Transfer car ownership</NavItem>
                       <NavItem eventKey="fourth">Read Car History</NavItem>
                       <hr/>
                       <NavItem eventKey="fifth">Change Trust State</NavItem>
-                      <NavItem eventKey="sixth">Trust Store Setting</NavItem>
                       <hr/>
+                      <NavItem eventKey="addExisting">Add existing contract for a car</NavItem>
+                      <NavItem eventKey="sixth">Trust Store Setting</NavItem>
                       <NavItem eventKey="seventh">Account</NavItem>
                     </Nav>
                   </Col>
@@ -125,9 +125,6 @@ class App extends Component {
                     <Tab.Content animation unmountOnExit={true}>
                       <Tab.Pane eventKey="createNew">
                         <CreateForm contractService={this.contractService} vinRegistryService={this.vinRegistryService} />
-                      </Tab.Pane>
-                      <Tab.Pane eventKey="addExisting">
-                        <AddVinForm vinRegistryService={this.vinRegistryService} />
                       </Tab.Pane>
                       <Tab.Pane eventKey="second">
                         <ProposeLogEntryForm contractService={this.contractService}/>
@@ -143,6 +140,9 @@ class App extends Component {
                       </Tab.Pane>
                       <Tab.Pane eventKey="fifth">
                         <TrustIdentityFrom trustedIdentitiesService={this.trustedIdentitiesService}/>
+                      </Tab.Pane>
+                      <Tab.Pane eventKey="addExisting">
+                        <AddVinForm vinRegistryService={this.vinRegistryService} />
                       </Tab.Pane>
                       <Tab.Pane eventKey="sixth">
                         <CreateTrustedIdentitiesStoreForm trustedIdentitiesService={this.trustedIdentitiesService} contractService={this.contractService}/>
