@@ -23,7 +23,7 @@ export default class AddVinForm extends React.Component {
   static initialState() {
     return {
       vin: '',
-      contractAddress: 0,
+      contractAddress: '',
       wasAdded: false
     };
   }
@@ -34,12 +34,14 @@ export default class AddVinForm extends React.Component {
   }
 
   getValidationState(id) {
+    let len;
     switch (id) {
       case 'vin':
-        const len = this.state.vin.length;
+        len = this.state.vin.length;
         return len > 5 ? 'success' : len === 0 ? null : 'error';
       case 'contractAddress':
-        return this.state.contractAddress.length > 0 ? 'success' : 'error';
+        len = this.state.contractAddress.length;
+        return len > 5 ? 'success' : len === 0 ? null : 'error';
       default:
         return null;
     }
