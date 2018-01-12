@@ -39,12 +39,15 @@ class App extends Component {
     }
 
     this.updateAccountHandler = this.updateAccountHandler.bind(this);
+    this.contractService.startRefresh(this.updateAccountHandler);
 
     this.state = {currentAccount: '', selectedAccount: null};
   }
 
-  updateAccountHandler(account){
-      this.setState({currentAccount: account})
+  updateAccountHandler(account) {
+      if (this.state.currentAccount && this.state.currentAccount !== account) {
+        this.setState({currentAccount: account})
+      }
   }
 
   handleSwitchAccount = (selected) => {

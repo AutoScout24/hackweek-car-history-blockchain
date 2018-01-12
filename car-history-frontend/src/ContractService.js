@@ -6,6 +6,8 @@ import {UseGivenProvider} from "./FeatureSwitches";
 const defaultGasPrice = '300000000000';
 const defaultGasVolume = '4000000';
 
+let refreshHandler;
+
 export default class ContractService {
 
   constructor() {
@@ -209,6 +211,13 @@ export default class ContractService {
         return event.transactionHash;
       });
   }
+
+  startRefresh(updateAccountHandler) {
+    if (refreshHandler) {
+      return;
+    }
+    refreshHandler = setInterval(function() {
+      this.loadAccounts().then((account) => updateAccountHandler(account));
+    }.bind(this), 1500);
+  }
 }
-
-

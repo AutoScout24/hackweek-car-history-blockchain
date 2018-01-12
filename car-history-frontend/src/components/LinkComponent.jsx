@@ -25,7 +25,7 @@ export default class LinkComponent extends React.Component {
 }
 
 LinkComponent.propTypes = {
-  contractService: PropTypes.object.isRequire,
+  contractService: PropTypes.object.isRequired,
   linkType: PropTypes.string.isRequired,
   // address: PropTypes.string.isRequired,
   // value: PropTypes.string.isRequired
