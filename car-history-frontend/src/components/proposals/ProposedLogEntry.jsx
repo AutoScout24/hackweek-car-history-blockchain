@@ -22,7 +22,7 @@ export default class ProposedLogEntry extends React.Component {
               </Panel.Heading>
               <Panel.Body>
                 <p><b>Comment:</b> {this.props.comment}</p>
-                <p><b>Author:</b> <TrustLabel idAddress={this.props.author}/></p>
+                <p><b>Author:</b> <TrustLabel contractService={this.props.contractService} idAddress={this.props.author} linkType='user' value={this.props.author}/></p>
                 <p><b>Mileage:</b> {this.props.mileage} km</p>
               </Panel.Body>
             </Panel>

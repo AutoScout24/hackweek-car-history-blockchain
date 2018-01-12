@@ -12,6 +12,7 @@ import NProgress from 'nprogress';
 
 import 'nprogress/nprogress.css';
 import VinPicker from "../vin-management/VinPicker";
+import LinkComponent from "../LinkComponent";
 
 export default class ChangeOwnerForm extends React.Component {
 
@@ -96,7 +97,7 @@ export default class ChangeOwnerForm extends React.Component {
             <Panel.Title componentClass="h3">Transaction is finished</Panel.Title>
           </Panel.Heading>
           <Panel.Body>
-            Transaction hash: <span className="hash">{this.state.transactionHash}</span>
+            Transaction hash: <span className="hash"><LinkComponent contractService={this.props.contractService} address={this.state.transactionHash} linkType='transaction' value={this.state.transactionHash}/></span>
           </Panel.Body>
         </Panel>
       }

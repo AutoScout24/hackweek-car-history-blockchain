@@ -133,6 +133,7 @@ export default class AcceptProposedLogEntryForm extends React.Component {
               <h4>Loading...</h4>
           ) : (this.state.proposedData ? (
               <ProposedLogEntry
+                  contractService={this.props.contractService}
                   {...this.state.proposedData}
                   disabled={this.state.approvalState === StateEnum.Loading}
                   onAccept={this.onAcceptProposal}

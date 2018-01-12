@@ -43,6 +43,36 @@ export default class ContractService {
     return this.account;
   }
 
+  getNetworkType(){
+    if(this.networkType){
+      return Promise.resolve(this.networkType);
+    }
+    return this.web3.eth.net.getNetworkType().then((networkType) => {
+        console.log('Network type: ' + networkType);
+        this.networkType = networkType;
+        return networkType;
+    })
+  }
+
+    getLink(type, address, networkType) {
+        let link;
+        switch (type) {
+            case 'contract': {
+                link = 'https://' + networkType + '.etherscan.io/address/' + address;
+                break;
+            }
+            case 'transaction': {
+                link = 'https://' + networkType + '.etherscan.io/tx/' + address;
+                break;
+            }
+            case 'user': {
+                link = 'https://' + networkType + '.etherscan.io/address/' + address;
+                break;
+            }
+        }
+        return link;
+    }
+
   getCurrentAccountAddress() {
     if (UseGivenProvider) {
       return this.account;

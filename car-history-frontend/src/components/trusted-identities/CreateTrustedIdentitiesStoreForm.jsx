@@ -8,6 +8,7 @@ import PropTypes from "prop-types";
 import NProgress from 'nprogress';
 
 import 'nprogress/nprogress.css';
+import LinkComponent from "../LinkComponent";
 
 export default class CreateTrustedIdentitiesStoreForm extends React.Component {
   constructor(props) {
@@ -79,7 +80,7 @@ export default class CreateTrustedIdentitiesStoreForm extends React.Component {
 
         <Panel>
           <Panel.Body>
-            Current Trust Store Address: <span className="hash">{this.props.trustedIdentitiesService.contract.options.address}</span>
+              Current Trust Store Address: <span className="hash"><LinkComponent contractService={this.props.contractService} linkType='contract' address={this.props.trustedIdentitiesService.contract.options.address} value={this.props.trustedIdentitiesService.contract.options.address}/></span>
           </Panel.Body>
         </Panel>
         {error()}

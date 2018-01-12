@@ -72,7 +72,7 @@ export default class ReadCarHistoryDataForm extends React.Component {
           {this.state.loading ? (
               <h4>Loading...</h4>
           ) : (this.state.contractData ? (
-              <CarHistoryData {...this.state.contractData}/>
+              <CarHistoryData {...this.state.contractData} contractService={this.props.contractService} />
           ) : (null))}
         </div>
     );

@@ -73,7 +73,7 @@ class App extends Component {
               </Navbar.Brand>
             </Navbar.Header>
             <Nav>
-              <NavItem>Current Account: <TrustLabel idAddress={currentAccountAddress}/></NavItem>
+              <NavItem>Current Account: <TrustLabel idAddress={currentAccountAddress} contractService={this.contractService}/></NavItem>
             </Nav>
           </Navbar>
           <div className="row">
@@ -140,7 +140,7 @@ class App extends Component {
                         <TrustIdentityFrom trustedIdentitiesService={this.trustedIdentitiesService}/>
                       </Tab.Pane>
                       <Tab.Pane eventKey="sixth">
-                        <CreateTrustedIdentitiesStoreForm trustedIdentitiesService={this.trustedIdentitiesService}/>
+                        <CreateTrustedIdentitiesStoreForm trustedIdentitiesService={this.trustedIdentitiesService} contractService={this.contractService}/>
                       </Tab.Pane>
                       <Tab.Pane eventKey="seventh">
                         <AccountForm updateAccountHandler={this.updateAccountHandler} contractService={this.contractService}/>

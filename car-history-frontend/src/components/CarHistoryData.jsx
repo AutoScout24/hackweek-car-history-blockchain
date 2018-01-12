@@ -17,7 +17,7 @@ export default class CarHistoryData extends React.Component {
             </Panel.Heading>
             <Panel.Body>
               <p><b>VIN:</b> {this.props.VIN}</p>
-              <p><b>Owner:</b> <TrustLabel idAddress={this.props.owner}/></p>
+              <p><b>Owner:</b> <TrustLabel idAddress={this.props.owner} contractService={this.props.contractService} linkType='user' value={this.props.owner}/></p>
               <p><b>Mileage:</b> {this.props.latestMileage} km</p>
               <h5>Log Entries:</h5>
 
@@ -33,7 +33,7 @@ export default class CarHistoryData extends React.Component {
                 {this.props.logEntries.map((entry) => {
                   return <tr>
                     <td>{entry.comment}</td>
-                    <td><TrustLabel idAddress={entry.author}/></td>
+                    <td><TrustLabel idAddress={entry.author} contractService={this.props.contractService} linkType='user' value={entry.author}/></td>
                     <td>{entry.mileage} km</td>
                   </tr>;
                 })}

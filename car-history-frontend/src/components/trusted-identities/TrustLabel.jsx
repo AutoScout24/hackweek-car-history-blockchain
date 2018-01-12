@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import TrustedIdentitiesService, {TrustLevelEnum} from "../../TrustedIdentitiesService";
 
 import './styles/trust-label.css';
+import LinkComponent from "../LinkComponent";
 
 export default class TrustLabel extends React.Component {
 
@@ -49,9 +50,10 @@ export default class TrustLabel extends React.Component {
       }
     })();
 
-    return (
-      <span>{this.state.name} {trustLevel} ({this.props.idAddress === 'not_selected' ? '' : this.props.idAddress})</span>
-    );
+      if(this.props.idAddress === 'not_selected' ){
+          return <span>{this.state.name} {trustLevel} ()}</span>;
+      }
+      return <span>{this.state.name} {trustLevel} (<LinkComponent contractService={this.props.contractService} address={this.props.idAddress} linkType='user' value={this.props.idAddress}/>)</span>
   }
 
   loadVerificationInfo(address) {

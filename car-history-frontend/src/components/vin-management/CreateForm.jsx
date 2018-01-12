@@ -12,6 +12,7 @@ import NProgress from 'nprogress';
 
 import './styles/CreateForm.css';
 import 'nprogress/nprogress.css';
+import LinkComponent from "../LinkComponent";
 
 export default class CreateForm extends React.Component {
   constructor(props) {
@@ -91,7 +92,7 @@ export default class CreateForm extends React.Component {
             <Panel.Title componentClass="h3">Contract is created</Panel.Title>
           </Panel.Heading>
           <Panel.Body>
-            Contract address: <span className="hash">{this.state.contractAddress}</span>
+              Contract address: <span className="hash"><LinkComponent contractService={this.props.contractService} address={this.state.contractAddress} linkType='contract' value={this.state.contractAddress}/></span>
           </Panel.Body>
         </Panel>
       }
