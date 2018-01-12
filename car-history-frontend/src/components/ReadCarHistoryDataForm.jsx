@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {
   Alert,
-  Button, Panel
+  Panel
 } from 'react-bootstrap';
 import CarHistoryData from "./CarHistoryData";
 import NProgress from 'nprogress';
